@@ -160,7 +160,7 @@
       <div class="container">
 
         <a href="#" class="header-logo">
-          <a href="index.html" style="color: black; font-weight: 700; font-size: 1.7em;">NIGGAS</a>
+          <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">NIGGAS</a>
         </a>
 
         <div class="header-search-container">
@@ -174,10 +174,12 @@
         </div>
 
         <div class="header-user-actions">
-
-          <button class="action-btn">
-            <ion-icon name="person-outline"></ion-icon>
-          </button>
+      
+          <a href="login.php">
+            <button class="action-btn">
+              <ion-icon name="person-outline"></ion-icon>
+            </button>
+          </a>
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>

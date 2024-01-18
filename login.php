@@ -2,49 +2,72 @@
 // Detect the current session
 session_start();
 // Include the Page Layout header 
-// include("header.php");
+include("header.php");
 ?>
-<!-- Create a cenrally located container -->
-<div style="width: 80%; margin:auto;">
-<!-- Create a HTML Form within the container -->
-<form action="checkLogin.php" method="post">
-<!-- 1st row Header Row -->
-<div class="mb-3 row">
-     <div class="col-sm-9 offset-sm-3">
-          <span class="page-title">Member Login</span>
+<div class="center-container">
+  <div class="register-container" id="register-container">
+    <div class="form-container sign-up">
+      <form>
+        <h1>Create Account</h1>
+        <span>Please fill in the information below</span>
+        <div class="input-group">
+          <input type="text" placeholder="Name" />
+          <input type="email" placeholder="Email" />
+        </div>
+        <div class="input-group">
+          <input type="date" id="dob" placeholder="Date of Birth" />
+          <input
+            type="tel"
+            placeholder="Phone No."
+            pattern="[0-9]+"
+            title="Please enter only numbers"
+          />
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Address" />
+          <input type="text" placeholder="Country" />
+        </div>
+        <input type="password" placeholder="password" />
+        <span>Security Questions (To retrieve password):</span>
+        <div class="input-group">
+          <select name="security_question" id="security_question">
+            <option value="" disabled selected>Select your question</option>
+            <option value="q1">Do you have any pets?</option>
+            <option value="q2">In which city were you born?</option>
+            <option value="q3">What is your favorite movie?</option>
+          </select>
+          <input type="text" placeholder="Answer" />
+        </div>
+        <button>Sign Up</button>
+      </form>
     </div>
-</div>
-<!-- 2nd row Entry of email address -->
-<div class="mb-3 row">
-     <label class="col-sm-3 col-form-label" for="email">
-         Email Address:
-     </label>
-     <div class="col-sm-9">
-         <input class="form-control" type="email"
-                name="email" id="email" required />
-     </div>
-</div>
-<!-- 3rd row Entry of password -->
-<div class="mb-3 row">
-    <label class="col-sm-3 col-form-label" for="password">
-        Password:
-    </label>
-    <div class="col-sm-9">
-        <input class="form-control" type="password"
-               name="password" id="password" required />
-    </div>  
-</div>
-<!-- 4th row Login button -->
-<div class='mb-3 row'>
-    <div class='col-sm-9 offset-sm-3'>
-        <button type="submit">Login</button>
-        <p>Please sign up if you do not have an account.</p>
-        <p><a href="forgetPassword.php">Forget Password</a></p>
+    <div class="form-container sign-in">
+      <form action="checkLogin.php" method="post">
+        <h1>Sign In</h1>
+        <span>with your email and password </span>
+        <input type="email" name="email" id="email" placeholder="Email" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
+        <a href="#">Forget Your Password?</a>
+        <button type="submit">Sign In</button>
+      </form>
     </div>
-</div>
-</form>
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>Welcome Back!</h1>
+          <p>Enter your personal details to use all of site features</p>
+          <button class="hidden" id="login">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>Hello, Friend!</h1>
+          <p>Register with your personal details to use all of site features</p>
+          <button class="hidden" id="register">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <?php
 // Include the Page Layout footer 
-// include("footer.php");
+include("footer.php");
 ?>

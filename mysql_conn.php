@@ -2,7 +2,7 @@
 //Connection Parameters
 $servername = "localhost";
 $username = "root";
-$password = "";
+$userpwd = "";
 $dbname = "ecadasg1";
 
 // Create connection
