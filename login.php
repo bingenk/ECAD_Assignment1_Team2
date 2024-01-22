@@ -7,36 +7,38 @@ include("header.php");
 <div class="center-container">
   <div class="register-container" id="register-container">
     <div class="form-container sign-up">
-      <form>
+      <form action="addMember.php" method="Post">
         <h1>Create Account</h1>
         <span>Please fill in the information below</span>
         <div class="input-group">
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="Name" id="Name" Name="Name"/>
+          <input type="email" placeholder="Email" id="Sign_Up_Email" Name="Sign_Up_Email"/>
         </div>
         <div class="input-group">
-          <input type="date" id="dob" placeholder="Date of Birth" />
+          <input type="date" id="Dob" Name="Dob" placeholder="Date of Birth" />
           <input
             type="tel"
             placeholder="Phone No."
             pattern="[0-9]+"
             title="Please enter only numbers"
+            id="Phone"
+            Name="Phone"
           />
         </div>
         <div class="input-group">
-          <input type="text" placeholder="Address" />
-          <input type="text" placeholder="Country" />
+          <input type="text" placeholder="Address" id="Address" Name="Address" />
+          <input type="text" placeholder="Country" id="Country" Name="Country" />
         </div>
-        <input type="password" placeholder="password" />
+        <input type="password" placeholder="password" id="Sign_Up_Password"Name="Sign_Up_Password" />
         <span>Security Questions (To retrieve password):</span>
         <div class="input-group">
-          <select name="security_question" id="security_question">
+          <select name="Security_Question" id="Security_Question">
             <option value="" disabled selected>Select your question</option>
             <option value="q1">Do you have any pets?</option>
             <option value="q2">In which city were you born?</option>
             <option value="q3">What is your favorite movie?</option>
           </select>
-          <input type="text" placeholder="Answer" />
+          <input type="text" placeholder="Answer" id="Answer" Name="Answer" />
         </div>
         <button>Sign Up</button>
       </form>
@@ -45,8 +47,8 @@ include("header.php");
       <form action="checkLogin.php" method="post">
         <h1>Sign In</h1>
         <span>with your email and password </span>
-        <input type="email" name="email" id="email" placeholder="Email" required />
-        <input type="password" name="password" id="password" placeholder="Password" required />
+        <input type="email" name="Log_In_Email" id="Log_In_Email" placeholder="Email" required />
+        <input type="password" name="Log_In_Password" id="Log_In_Password" placeholder="Password" required />
         <a href="#">Forget Your Password?</a>
         <button type="submit">Sign In</button>
       </form>

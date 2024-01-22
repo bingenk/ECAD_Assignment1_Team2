@@ -5,8 +5,8 @@ session_start();
 include("header.php"); 
 
 // Reading inputs entered in previous page
-$email = $_POST["email"];
-$pwd = $_POST["password"];
+$email = $_POST["Log_In_Email"];
+$pwd = $_POST["Log_In_Password"];
 
 // Include the PHP file that establishes database connection handle: $conn
 include_once("mysql_conn.php");
@@ -74,42 +74,6 @@ $stmt->close();
 //Close database connection
 $conn->close();
 
-
-// To Do 1 (Practical 2): Validate login credentials with database
-
-if (($email == "ecader@np.edu.sg") && ($pwd == "password")) {
-	// Save user's info in session variables
-	$_SESSION["ShopperName"] = "Ecader";
-	$_SESSION["ShopperID"] = 1;
-	
-	// To Do 2 (Practical 4): Get active shopping cart
-    include_once("mysql_conn.php");
-	$qry = "SELECT sc.ShopCartID,COUNT(sci.ProductID) AS NumItems 
-	FROM ShopCart sc LEFT JOIN ShopCartItems sci 
-	ON sc.ShopCartID=sci.ShopCartID 
-	WHERE sc.ShopperID=? AND SC.OrderPlaced=0";
-	$stmt =$conn->prepare($qry);
-	$stmt->bind_param("i",$_SESSION["ShopperID"]);//"i" - integer
-	$stmt->execute();
-	$result = $stmt->get_result();
-    $stmt->close();
-
-	if ($result->num_rows > 0) {
-		
-		$row = $result->fetch_array();
-		$_SESSION["Cart"] = $row["ShopCartID"];
-		$_SESSION["NumCartItem"]= 4;
-	}
-	
-	
-	// Redirect to home page
-	header("Location: index.html");
-	exit;
-	$conn->close();
-}
-else {
-	echo  "<h3 style='color:red'>Invalid Login Credentials</h3>";
-}
 	
 // Include the Page Layout footer
 include("footer.php");
