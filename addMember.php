@@ -8,9 +8,9 @@ $dob=$_POST["Dob"];
 $phone=$_POST["Phone"];
 $address=$_POST["Address"];
 $country=$_POST["Country"];
-$phone=$_POST["Sign_Up_Password"];
-$email=$_POST["Security_Question"];
-$password=$_POST["Answer"];
+$password1=$_POST["Sign_Up_Password"];
+$security_question=$_POST["Security_Question"];
+$answer=$_POST["Answer"];
 
 // // Create a password hase  using the defualt bcrypt algorithm
 $password = password_hash($_POST["Sign_Up_Password"],PASSWORD_DEFAULT);
@@ -24,7 +24,7 @@ $qry = "INSERT INTO Shopper (Name,BirthDate,Address,Country,Phone,Email,Password
         VALUES(?,?,?,?,?,?,?,?,?)";
 $stmt = $conn->prepare($qry);
 // "ssssss" - 6 string parameters
-$stmt->bind_param("ssssissss", $name, $dob, $address, $country, $phone, $email, $password, $security_question, $answer);
+$stmt->bind_param("sssssssss", $name, $dob, $address, $country, $phone, $email, $password, $security_question, $answer);
 
 if($stmt->execute()){//SQL statement executed succesfully
 //Retrieve the shopper ID assigned to the new shopper
@@ -52,7 +52,8 @@ $conn->close();
 //Display Page Layout header with updated session state and links
 include("header.php");
 //Display message
-echo $Message;
+echo $Message . " " . $password1 . " " . $password;
+
 //Display Page Layout footer
 include("footer.php");
 ?>

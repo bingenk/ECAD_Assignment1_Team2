@@ -34,9 +34,9 @@ include("header.php");
         <div class="input-group">
           <select name="Security_Question" id="Security_Question">
             <option value="" disabled selected>Select your question</option>
-            <option value="q1">Do you have any pets?</option>
-            <option value="q2">In which city were you born?</option>
-            <option value="q3">What is your favorite movie?</option>
+            <option value="Do you have any pets?">Do you have any pets?</option>
+            <option value="In which city were you born?">In which city were you born?</option>
+            <option value="What is your favorite movie?">What is your favorite movie?</option>
           </select>
           <input type="text" placeholder="Answer" id="Answer" Name="Answer" />
         </div>
@@ -44,11 +44,11 @@ include("header.php");
       </form>
     </div>
     <div class="form-container sign-in">
-      <form action="checkLogin.php" method="post">
+      <form action="checkLogin.php" method="Post">
         <h1>Sign In</h1>
         <span>with your email and password </span>
-        <input type="email" name="Log_In_Email" id="Log_In_Email" placeholder="Email" required />
-        <input type="password" name="Log_In_Password" id="Log_In_Password" placeholder="Password" required />
+        <input type="email" Name="Log_In_Email" id="Log_In_Email" placeholder="Email" required />
+        <input type="password" Name="Log_In_Password" id="Log_In_Password" placeholder="Password" required />
         <a href="#">Forget Your Password?</a>
         <button type="submit">Sign In</button>
       </form>
