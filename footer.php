@@ -184,6 +184,7 @@
 <!-- custom js link -->
 <script src="js/script.js"></script>
 <script src="js/register.js"></script>
+<script src="js/shoppingCart.js"></script>
 
 <!-- ion icon link -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
