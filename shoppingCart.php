@@ -4,75 +4,80 @@ session_start();
 // Include the Page Layout header 
 include("header.php");
 ?>
-<aside class="aside">
-  <div class="side-panel" data-side-panel="cart">
-    <button
-      class="panel-close-btn"
-      aria-label="Close cart"
-      data-panel-btn="cart"
-    >
-      <ion-icon name="close-outline"></ion-icon>
-    </button>
+<h2 class="shopping-cart-title">Shopping Cart</h2>
 
-    <ul class="panel-list">
-      <li class="panel-item">
-        <a href="#" class="panel-card">
-          <figure class="item-banner">
-            <img
-              src="Images/Products/Blissful_Bundle.jpg"
-              width="46"
-              height="46"
-              loading="lazy"
-              alt="Blissful Bundle"
-            />
-          </figure>
-
-          <div>
-            <p class="item-title">Blissful Bundle</p>
-
-            <span class="item-value">$20.15x1</span>
-          </div>
-
-          <button class="item-close-btn" aria-label="Remove item">
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
-        </a>
-      </li>
-
-      <li class="panel-item">
-        <a href="#" class="panel-card">
-          <figure class="item-banner">
-            <img
-              src="Images/Products/Pink_Lady.jpg"
-              width="46"
-              height="46"
-              loading="lazy"
-              alt="Eco Vegetable"
-            />
-          </figure>
-
-          <div>
-            <p class="item-title">Pink Lady</p>
-
-            <span class="item-value">$13.25x2</span>
-          </div>
-
-          <button class="item-close-btn" aria-label="Remove item">
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
-        </a>
-      </li>
-    </ul>
-
-    <div class="subtotal">
-      <p class="subtotal-text">Subtotal:</p>
-
-      <data class="subtotal-value" value="215.14">$215.14</data>
-    </div>
-
-    <a href="#" class="panel-btn">View Cart</a>
+<div class="shopping-cart">
+  <div class="column-labels">
+    <label class="product-image">Image</label>
+    <label class="product-details">Product</label>
+    <label class="product-price">Price</label>
+    <label class="product-quantity">Quantity</label>
+    <label class="product-removal">Remove</label>
+    <label class="product-line-price">Total</label>
   </div>
-</aside>
+
+  <div class="product">
+    <div class="product-image">
+      <img src="Images/Products/Blissful_Bundle.jpg" />
+    </div>
+    <div class="product-details">
+      <div class="product-title">Blissful Bundle</div>
+      <p class="product-description">
+        Delicious fruits embellished with fresh Orchids packaged in White Handwoven Handle Basket.
+      </p>
+    </div>
+    <div class="product-price">12.99</div>
+    <div class="product-quantity">
+      <input type="number" value="2" min="1" />
+    </div>
+    <div class="product-removal">
+      <button class="remove-product">Remove</button>
+    </div>
+    <div class="product-line-price">25.98</div>
+  </div>
+
+  <div class="product">
+    <div class="product-image">
+      <img src="Images/Products/Pink_Lady.jpg" />
+    </div>
+    <div class="product-details">
+      <div class="product-title">Pink Lady</div>
+      <p class="product-description">
+        Wrapped in pretty dolly pink paper, let our splendid ensemble of 12 Pink Roses and Pink Alstroemerias beautify one's day
+      </p>
+    </div>
+    <div class="product-price">45.99</div>
+    <div class="product-quantity">
+      <input type="number" value="1" min="1" />
+    </div>
+    <div class="product-removal">
+      <button class="remove-product">Remove</button>
+    </div>
+    <div class="product-line-price">45.99</div>
+  </div>
+
+  <div class="totals">
+    <div class="totals-item">
+      <label>Subtotal</label>
+      <div class="totals-value" id="cart-subtotal">71.97</div>
+    </div>
+    <div class="totals-item">
+      <label>Tax (5%)</label>
+      <div class="totals-value" id="cart-tax">3.60</div>
+    </div>
+    <div class="totals-item">
+      <label>Shipping</label>
+      <div class="totals-value" id="cart-shipping">15.00</div>
+    </div>
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">90.57</div>
+    </div>
+  </div>
+
+  <button class="checkout">Checkout</button>
+</div>
+<!-- Shopping Cart ends -->
 <?php
 // Include the Page Layout footer 
 include("footer.php");

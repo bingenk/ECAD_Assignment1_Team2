@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -186,11 +187,12 @@
             <span class="count">0</span>
           </button>
 
-    
-          <button class="action-btn" id="cartButton">
-            <ion-icon name="bag-handle-outline"></ion-icon>
-            <span class="count">2</span>
-          </button>          
+          <a href="shoppingCart.php">
+            <button class="action-btn" id="cartButton">
+              <ion-icon name="bag-handle-outline"></ion-icon>
+              <span class="count">2</span>
+            </button>         
+          </a>    
 
         </div>
 
