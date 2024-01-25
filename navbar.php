@@ -5,27 +5,15 @@
         <ul class="desktop-menu-category-list">
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Cat1</a>
+            <a href="#" class="menu-title">Flowers</a>
           </li>
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Cat2</a>
+            <a href="#" class="menu-title">Gifts</a>
           </li>
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Cat3</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Cat4</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Cat5</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Cat6</a>
+            <a href="#" class="menu-title">Hampers</a>
           </li>
 
          </ul> 
@@ -81,7 +69,7 @@
         <li class="menu-category">
 
           <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Cat1</p>
+            <p class="menu-title">Flowers</p>
 
             <div>
               <ion-icon name="add-outline" class="add-icon"></ion-icon>
@@ -114,7 +102,7 @@
         <li class="menu-category">
 
           <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Cat2</p>
+            <p class="menu-title">Gifts</p>
 
             <div>
               <ion-icon name="add-outline" class="add-icon"></ion-icon>
@@ -147,7 +135,7 @@
         <li class="menu-category">
 
           <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Cat3</p>
+            <p class="menu-title">Hampers</p>
 
             <div>
               <ion-icon name="add-outline" class="add-icon"></ion-icon>
@@ -175,47 +163,6 @@
 
           </ul>
 
-        </li>
-
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Cat4</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">abc</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">abc</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">abc</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">abc</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Cat5</a>
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Cat6</a>
         </li>
 
       </ul>

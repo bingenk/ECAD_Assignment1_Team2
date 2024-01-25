@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Niggas Gift Shop</title>
+  <title>FloraGifts E-commerce Shop</title>
 
   <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
 
@@ -44,7 +44,7 @@
             <h3 class="newsletter-title">Subscribe Newsletter.</h3>
 
             <p class="newsletter-desc">
-              Subscribe the <b>Niggas</b> to get latest products and discount update.
+              Subscribe to <b>FloraGifts</b> to get latest products and discount update.
             </p>
 
           </div>
@@ -129,7 +129,7 @@
 
         <div class="header-alert-news">
           <p>
-            Welcome to <b>niggas</b> gift shop
+            Welcome to <b>FloraGifts</b> gift shop
           </p>
         </div>
 
@@ -161,7 +161,7 @@
       <div class="container">
 
         <a href="#" class="header-logo">
-          <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">NIGGAS</a>
+          <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">FloraGifts</a>
         </a>
 
         <div class="header-search-container">
