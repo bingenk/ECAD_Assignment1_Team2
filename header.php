@@ -164,15 +164,22 @@
           <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">FloraGifts</a>
         </a>
 
-        <div class="header-search-container">
 
-          <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+        <form name="frmSearch" action="search.php" class="header-search-form">
 
-          <button class="search-btn">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
+        
+          <div class="header-search-container">
 
-        </div>
+            <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name...">
+
+            <button class="search-btn" type="submit">
+              <ion-icon name="search-outline"></ion-icon>
+            </button>
+
+          </div>
+
+        </form>
+    
 
         <div class="header-user-actions">
       
@@ -201,3 +208,5 @@
     </div>    
 
   </header>
+
+
