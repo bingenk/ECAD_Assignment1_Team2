@@ -39,6 +39,9 @@ if($stmt->execute()){//SQL statement executed succesfully
                 Your  ShopperID is $_SESSION[ShopperID]<br/>";
     //Save the shopper name in a session variable
     $_Session["ShoperName"] =$name;
+
+    header('Location: index.php');
+    exit();
 }
 else{//Error message
      $Message = "<h3 style='color:red'>Error in inserting record</h3>";
