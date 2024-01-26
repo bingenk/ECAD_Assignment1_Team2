@@ -182,12 +182,13 @@
     
 
         <div class="header-user-actions">
-      
-          <a href="login.php">
-            <button class="action-btn">
-              <ion-icon name="person-outline"></ion-icon>
-            </button>
+        
+          <a href="<?php echo isset($_SESSION['ShopperID']) ? 'profile.php' : 'login.php'; ?>">
+          <button class="action-btn">
+          <ion-icon name="person-outline"></ion-icon>
+          </button>
           </a>
+
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
