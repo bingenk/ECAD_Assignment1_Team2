@@ -70,6 +70,7 @@ if($result->num_rows>0){//SQL statement executed succesfully
 		// echo "<br>";
 		// echo $hashed_pwd;
 		// echo "<br>";
+
 		echo "Authentication failed: Incorrect password.";
    }
 }

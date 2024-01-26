@@ -1,6 +1,6 @@
 <?php
 // Detect the current session
-session_start();
+
 // Include the Page Layout header 
 include("header.php");
 ?>
@@ -49,6 +49,8 @@ include("header.php");
         <span>with your email and password </span>
         <input type="email" Name="Log_In_Email" id="Log_In_Email" placeholder="Email" required />
         <input type="password" Name="Log_In_Password" id="Log_In_Password" placeholder="Password" required />
+      ?>
+
         <a href="#">Forget Your Password?</a>
         <button type="submit">Sign In</button>
       </form>
