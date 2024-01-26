@@ -218,13 +218,6 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
                     <ion-icon name="person-outline"></ion-icon>
                 </button>
             <?php endif; ?>
-        
-          <a href="<?php echo isset($_SESSION['ShopperID']) ? 'profile.php' : 'login.php'; ?>">
-          <button class="action-btn">
-          <ion-icon name="person-outline"></ion-icon>
-          </button>
-          </a>
-
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
