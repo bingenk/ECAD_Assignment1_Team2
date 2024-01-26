@@ -3911,3 +3911,39 @@ label {
   transform: translateX(5px);
   font-weight: 450;
 }
+
+
+/* /sidebar  */
+.sidebar-category {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-checkbox {
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-checkbox label {
+  display: flex;
+  align-items: center;
+}
+
+.filter-button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #4CAF50; /* Example color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: #45a049; /* Darker shade for hover effect */
+}

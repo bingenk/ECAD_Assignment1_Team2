@@ -1,6 +1,5 @@
 <?php
-// Detect the current session
-session_start();
+//Session included in header.php
 // Include the Page Layout header 
 include("header.php");
 if (! isset($_SESSION["ShopperID"])) { // Check if user logged in 

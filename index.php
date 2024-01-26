@@ -73,152 +73,39 @@
 <div class="product-container">
   <div class="container">          
     <div class="sidebar  has-scrollbar" data-mobile-menu>
-      <div class="sidebar-category">
+    <div class="sidebar-category">
         <div class="sidebar-top">
           <h2 class="sidebar-title">Category</h2>
+          <!-- Other elements like close button -->
+        
+        <form action="product_display.php" method="GET">
+          <div class="category-checkbox">
+              <label>
+                  <input type="checkbox" id="flowersCheckbox" name="category[]" value="Flowers">
+                  Flowers
+              </label>
+          </div>
 
-          <button class="sidebar-close-btn" data-mobile-menu-close-btn>
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
+          <div class="category-checkbox">
+              <label>
+                  <input type="checkbox" id="giftsCheckbox" name="category[]" value="Gifts">
+                  Gifts
+              </label>
+          </div>
+
+          <div class="category-checkbox">
+              <label>
+                  <input type="checkbox" id="hampersCheckbox" name="category[]" value="Hampers">
+                  Hampers
+              </label>
+          </div>
+
+          <button id="submitBtn" class="filter-button">Filter</button>
+      </form>
         </div>
-
-        <ul class="sidebar-menu-category-list">
-          <li class="sidebar-menu-category">
-            <button class="sidebar-accordion-menu" data-accordion-btn>
-              <div class="menu-title-flex">
-                <ion-icon name="bag-outline"></ion-icon>
-
-                <p class="menu-title">Flowers</p>
-              </div>
-
-              <div>
-                <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-              </div>
-            </button>
-
-            <ul class="sidebar-submenu-category-list" data-accordion>
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-            </ul>
-          </li>          
-
-          <li class="sidebar-menu-category">
-            <button class="sidebar-accordion-menu" data-accordion-btn>
-              <div class="menu-title-flex">
-                <ion-icon name="bag-outline"></ion-icon>
-
-                <p class="menu-title">Gifts</p>
-              </div>
-
-              <div>
-                <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-              </div>
-            </button>
-
-            <ul class="sidebar-submenu-category-list" data-accordion>
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-            </ul>
-          </li>          
-
-          <li class="sidebar-menu-category">
-            <button class="sidebar-accordion-menu" data-accordion-btn>
-              <div class="menu-title-flex">
-                <ion-icon name="bag-outline"></ion-icon>
-
-                <p class="menu-title">Hampers</p>
-              </div>
-
-              <div>
-                <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-              </div>
-            </button>
-
-            <ul class="sidebar-submenu-category-list" data-accordion>
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-
-              <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">abc</p>
-                  <data class="stock" title="Available Stock">123</data>
-                </a>
-              </li>
-            </ul>
-          </li>                              
-        </ul>
       </div>
+
+  
 
       <div class="product-showcase">
         <h3 class="showcase-heading">best sellers</h3>
