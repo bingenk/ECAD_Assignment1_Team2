@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+// Check if user is logged in
+$isUserLoggedIn = isset($_SESSION['ShopperID']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -182,12 +189,35 @@
     
 
         <div class="header-user-actions">
-      
-          <a href="login.php">
-            <button class="action-btn">
-              <ion-icon name="person-outline"></ion-icon>
-            </button>
-          </a>
+            <?php if ($isUserLoggedIn): ?>
+                <!-- Dropdown for logged in users -->
+                <div class="user-dropdown">
+                    <button class="action-btn dropdown-toggle" onclick="toggleDropdown()">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </button>
+                    <div class="dropdown-content" id="userDropdown">
+                      <div class="sub-dropdown-content">
+                        <div class="user-info">
+                          <h4>Bing En</h4>                        
+                        </div>
+                        <hr>
+                        <div class="dropdown-item">
+                            <ion-icon name="person-add-outline"></ion-icon>
+                            <a href="updateProfile.php">Update Profile</a>                            
+                        </div>
+                        <div class="dropdown-item">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                            <a href="logout.php">Logout</a>                            
+                        </div>
+                      </div>  
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- Button for users not logged in -->
+                <button class="action-btn" onclick="redirectToLogin()">
+                    <ion-icon name="person-outline"></ion-icon>
+                </button>
+            <?php endif; ?>
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
@@ -207,6 +237,17 @@
 
     </div>    
 
-  </header>
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("userDropdown");
+            if (dropdown) {
+                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            }
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'login.php';
+        }
+    </script>
 
 

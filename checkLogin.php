@@ -28,7 +28,28 @@ if ($result->num_rows > 0) { // SQL statement executed successfully
     
     if (password_verify($pwd, $hashed_pwd) || $pwd == $hashed_pwd) {
         // Successful login logic
-        // [Your existing login success code here]
+
+        // Set session variables for ShopperID and ShopperName
+        $_SESSION["ShopperID"] = $row["ShopperID"];
+        $_SESSION["ShopperName"] = $row["Name"];
+
+        // Get active shopping cart
+        include_once("mysql_conn.php");
+        $qry = "SELECT sc.ShopCartID, COUNT(sci.ProductID) AS NumItems 
+                FROM ShopCart sc LEFT JOIN ShopCartItem sci 
+                ON sc.ShopCartID=sci.ShopCartID 
+                WHERE sc.ShopperID=? AND sc.OrderPlaced=0";
+        $stmt = $conn->prepare($qry);
+        $stmt->bind_param("i", $_SESSION["ShopperID"]); // "i" - integer
+        $stmt->execute();
+        $result2 = $stmt->get_result();
+        $stmt->close();
+
+        if ($result2->num_rows > 0) {
+            $row = $result2->fetch_array();
+            $_SESSION["Cart"] = $row["ShopCartID"];
+            $_SESSION["NumCartItem"] = $row["NumItems"];
+        }
 
         header("Location: index.php");
         exit();
@@ -42,6 +63,7 @@ if ($result->num_rows > 0) { // SQL statement executed successfully
     header("Location: login.php?error=email");
     exit();
 }
+
 
 // Close database connection
 $conn->close();

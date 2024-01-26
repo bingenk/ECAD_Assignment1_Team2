@@ -3872,3 +3872,42 @@ label {
   margin: 10px 0;
   font-size: 14px;
 }
+.dropdown-content {
+  display: none;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 18%;
+  right: 11%;
+  width: 250px;
+  z-index: 6;
+}
+
+.sub-dropdown-content {
+  background: var(--white);
+  box-shadow: var(--shadow-2);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  display: flexS;
+}
+
+.sub-dropdown-content a {
+  text-decoration: none;
+  color: var(--eerie-black);
+}
+.dropdown-content .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust the gap as needed */
+}
+
+.dropdown-item a {
+  transition: transform 0.5s;
+}
+
+.dropdown-item a:hover {
+  transform: translateX(5px);
+  font-weight: 450;
+}
