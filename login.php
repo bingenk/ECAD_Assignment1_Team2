@@ -4,21 +4,31 @@
 // Include the Page Layout header 
 include("header.php");
 
+$login_error_message = '';
+$register_error_message = '';
+
 if (isset($_GET['error'])) {
-  if ($_GET['error'] == 'password') {
-      $error_message = 'Incorrect password. Please try again.';
-  } elseif ($_GET['error'] == 'email') {
-      $error_message = 'Email not found. Please try again.';
-  }
+    if ($_GET['error'] == 'password') {
+        $login_error_message = 'Incorrect password. Please try again.';
+    } elseif ($_GET['error'] == 'email') {
+        $login_error_message = 'Email not found. Please try again.';
+    } elseif ($_GET['error'] == 'email_exists') {
+        $register_error_message = 'This email is already registered. Please use a different email.';
+    }
 }
 ?>
 
 <div class="center-container">
   <div class="register-container" id="register-container">
     <div class="form-container sign-up">
-      <form action="addMember.php" method="post">
-        <h1>Create Account</h1>
+      <form action="addMember.php" method="post" id="registrationForm">
+        <h1>Create Account</h1>        
         <span>Please fill in the information below</span>
+        <div id="errorMessage" style="color:red; font-size: smaller;">
+          <?php if (!empty($register_error_message)): ?>
+            <div class="error-message"><?php echo $register_error_message; ?></div>
+          <?php endif; ?>
+        </div>        
         <div class="input-group">
           <input type="text" placeholder="Name" id="Name" name="Name" required maxlength="50"/>
           <input type="email" placeholder="Email" id="Sign_Up_Email" name="Sign_Up_Email" required maxlength="50"/>
@@ -56,8 +66,8 @@ if (isset($_GET['error'])) {
     <form action="checkLogin.php" method="post">
         <h1>Sign In</h1>
         <span>with your email and password</span>
-        <?php if (isset($error_message)): ?>
-            <div class="error-message"><?php echo $error_message; ?></div>
+        <?php if (!empty($login_error_message)): ?>
+          <div class="error-message"><?php echo $login_error_message; ?></div>
         <?php endif; ?>
         <input type="email" name="Log_In_Email" id="Log_In_Email" placeholder="Email" required maxlength="50"/>
         <input type="password" name="Log_In_Password" id="Log_In_Password" placeholder="Password" required maxlength="20"/>
@@ -85,3 +95,27 @@ if (isset($_GET['error'])) {
 // Include the Page Layout footer 
 include("footer.php");
 ?>
+
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents the default form submission
+
+    const formData = new FormData(this);
+    fetch('addMember.php', {
+        method: 'post',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = 'index.php'; // Redirect on success
+        } else {
+            // Display error message
+            document.getElementById('errorMessage').innerText = data.message;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
