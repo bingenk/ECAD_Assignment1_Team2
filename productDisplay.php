@@ -99,8 +99,8 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    align-items: flex-start; /* To align items at the start of the container vertically */
-    padding: 1rem; /* Add padding around the grid for better spacing */
+    align-items: flex-start; 
+    padding: 1rem; 
 }
 
 @media (min-width: 600px) {
@@ -109,14 +109,12 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
     }
 }
 
-/* Styles for individual product showcase */
 .showcase {
-    max-width: 300px; /* Set a maximum width for each product */
-    margin: auto; /* Center each product in its flex container */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+    max-width: 300px; 
+    margin: auto; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
-/* Additional styling for showcase elements can go here */
 .description-container {
     position: relative;
 }
@@ -130,7 +128,7 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 }
 
 .showcase-title.short-description {
-    max-height: 60px; /* Adjust the maximum height as needed */
+    max-height: 60px; 
     overflow: hidden;
 }
 
