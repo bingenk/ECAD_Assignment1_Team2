@@ -3474,7 +3474,6 @@ footer {
   text-decoration: none;
   margin: 15px 0 10px;
 }
-
 .register-container button {
   background-color: var(--salmon-pink);
   color: #fff;
@@ -3943,4 +3942,9 @@ label {
 .dropdown-item a:hover {
   transform: translateX(5px);
   font-weight: 450;
+}
+
+#forget_password:hover {
+  color: blue;
+  text-decoration: underline;
 }
