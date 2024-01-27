@@ -1,9 +1,29 @@
 <?php
 session_start();
 
-
 // Check if user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
+
+// Database connection
+include_once('mysql_conn.php');
+
+// Initialize user name variable
+$userName = "Guest";
+
+// Fetch user's name if logged in
+if ($isUserLoggedIn) {
+    $shopper_id = $_SESSION['ShopperID'];
+
+    // Fetch the user's name from the database
+    $query = "SELECT Name FROM Shopper WHERE ShopperID = $shopper_id";
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $userName = $row['Name'];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -201,7 +221,7 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
                     <div class="dropdown-content" id="userDropdown">
                       <div class="sub-dropdown-content">
                         <div class="user-info">
-                          <h4>Bing En</h4>                        
+                          <h4><?php echo $userName; ?></h4>                   
                         </div>
                         <hr>
                         <div class="dropdown-item">
