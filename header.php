@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 // Check if user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
 ?>
@@ -221,6 +222,8 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
                 </button>
             <?php endif; ?>
 
+            
+
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
             <span class="count">0</span>
@@ -229,7 +232,32 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
           <a href="shoppingCart.php">
             <button class="action-btn" id="cartButton">
               <ion-icon name="bag-handle-outline"></ion-icon>
-              <span class="count">2</span>
+              <?php if ($isUserLoggedIn):
+              include_once('mysql_conn.php');
+
+                  $shopper_id = $_SESSION['ShopperID'];
+
+                  $query = "SELECT SUM(Quantity) AS total_quantity
+                  FROM shopcartitem
+                  WHERE ShopCartID IN (
+                      SELECT ShopCartID
+                      FROM shopcart
+                      WHERE ShopperID = $shopper_id
+                            )";
+
+                  $result = $conn->query($query);
+
+                  if ($result && $result->num_rows > 0) {
+                      $row = $result->fetch_assoc();
+                      $totalQuantity = $row['total_quantity'];
+                      echo "<span class='count'>$totalQuantity</span>";
+                  } else {
+                      $totalQuantity = 0; // Set to 0 if there are no items in the cart
+                      echo "<span class='count'>$totalQuantity</span>";
+                  }
+                          endif; ?>
+                          
+      
             </button>         
           </a>    
 

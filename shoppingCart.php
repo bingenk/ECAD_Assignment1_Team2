@@ -94,16 +94,42 @@ if (isset($_SESSION["Cart"])) {
   echo '<div class="totals-value" id="cart-subtotal">'.$formattedSubTotal.'</div>';
   echo '</div>';
   echo '<div class="totals-item">';
-  echo '<label>Tax (5%)</label>';
-  echo '<div class="totals-value" id="cart-tax">3.60</div>';
+  $qry2="SELECT * FROM gst
+  where EffectiveDate <= ?
+  ORDER BY EffectiveDate DESC LIMIT 1";
+  $stmt2 = $conn->prepare($qry2);
+  $date=date("Y-m-d");
+  $stmt2->bind_param("s",$date); 
+  $stmt2->execute();
+  $result2 = $stmt2->get_result();
+  $stmt2->close();
+  $row2 = $result2->fetch_array();
+
+  if($row2 != null){
+    $tax = $row2["TaxRate"];
+  }
+  else{
+    $tax = 0;
+  }
+  echo '<label>Tax ('.$tax.')</label>';
+  $taxAmount = $subTotal * $tax/100;
+  echo '<div class="totals-value" id="cart-tax">'.$taxAmount.'</div>';
   echo '</div>';
   echo '<div class="totals-item">';
   echo '<label>Shipping</label>';
-  echo '<div class="totals-value" id="cart-shipping">15.00</div>';
+ if($subTotal > 200){
+   $shipping = 0;}
+   else{
+
+
+   }
+
+  echo '<div class="totals-value" id="cart-shipping">'.$shipping.'</div>';
   echo '</div>';
   echo '<div class="totals-item totals-item-total">';
   echo '<label>Grand Total</label>';
-  echo '<div class="totals-value" id="cart-total">90.57</div>';
+  $totalprice= $subTotal + $taxAmount +$shipping ;
+  echo '<div class="totals-value" id="cart-total">'.$totalprice.'</div>';
   echo '</div>';
   echo '</div>';
   echo '<button class="checkout">Checkout</button>';
