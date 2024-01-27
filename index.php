@@ -73,12 +73,13 @@
 <div class="product-container">
   <div class="container">          
     <div class="sidebar  has-scrollbar" data-mobile-menu>
-    <div class="sidebar-category">
+      <div class="sidebar-category">
         <div class="sidebar-top">
           <h2 class="sidebar-title">Category</h2>
           <!-- Other elements like close button -->
+        </div>        
         
-        <form action="product_display.php" method="GET">
+        <form action="productDisplay.php" method="GET">
           <div class="category-checkbox">
               <label>
                   <input type="checkbox" id="flowersCheckbox" name="category[]" value="Flowers">
@@ -101,11 +102,8 @@
           </div>
 
           <button id="submitBtn" class="filter-button">Filter</button>
-      </form>
-        </div>
+        </form>        
       </div>
-
-  
 
       <div class="product-showcase">
         <h3 class="showcase-heading">best sellers</h3>

@@ -1082,6 +1082,39 @@ body::-webkit-scrollbar-thumb:hover {
   border-bottom: 1px solid var(--cultured);
 }
 
+.category-checkbox {
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-checkbox label {
+  display: flex;
+  align-items: center;
+}
+
+.category-checkbox label input[type="checkbox"] {
+  margin-right: 10px; /* Adjust this value as needed */
+}
+
+.filter-button {
+  padding: 4px 12px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: var(--salmon-pink); /* Example color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: hsl(353, 95%, 76%); /* Darker shade for hover effect */
+}
+
 .sidebar-top {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3910,40 +3943,4 @@ label {
 .dropdown-item a:hover {
   transform: translateX(5px);
   font-weight: 450;
-}
-
-
-/* /sidebar  */
-.sidebar-category {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.category-checkbox {
-  margin-bottom: 15px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.category-checkbox label {
-  display: flex;
-  align-items: center;
-}
-
-.filter-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #4CAF50; /* Example color */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.filter-button:hover {
-  background-color: #45a049; /* Darker shade for hover effect */
 }
