@@ -1,4 +1,8 @@
-<?php include('header.php'); include('navbar.php') ?>
+<?php 
+include('header.php'); 
+include('navbar.php') 
+
+?>
 <!-- MAIN -->
 <main>
 
