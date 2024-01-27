@@ -243,7 +243,11 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
                       SELECT ShopCartID
                       FROM shopcart
                       WHERE ShopperID = $shopper_id
-                            )";
+                      AND OrderPlaced = 0
+                  )
+                  "
+                          
+                            ;
 
                   $result = $conn->query($query);
 
@@ -253,7 +257,7 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
                       echo "<span class='count'>$totalQuantity</span>";
                   } else {
                       $totalQuantity = 0; // Set to 0 if there are no items in the cart
-                      echo "<span class='count'>$totalQuantity</span>";
+          
                   }
                           endif; ?>
                           

@@ -4,7 +4,7 @@
 include("header.php");
 if (! isset($_SESSION["ShopperID"])) { // Check if user logged in 
 	// redirect to login page if the session variable shopperid is not set
-	header ("Location: login.php");
+	header("Location: login.php");
 	exit;
 }
 ?>
@@ -120,7 +120,7 @@ if (isset($_SESSION["Cart"])) {
  if($subTotal > 200){
    $shipping = 0;}
    else{
-
+    $shipping = 5;
 
    }
 
