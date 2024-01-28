@@ -21,7 +21,7 @@ if (isset($_GET['error'])) {
 <div class="center-container">
   <div class="register-container" id="register-container">
     <div class="form-container sign-up">
-      <form action="addMember.php" method="post" id="registrationForm">
+      <form action="addMember.php" method="post" id="registrationForm"  onsubmit="return validateForm()">
         <h1>Create Account</h1>        
         <span>Please fill in the information below</span>
         <div id="errorMessage" style="color:red; font-size: smaller;">
@@ -118,4 +118,16 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         console.error('Error:', error);
     });
 });
+
+function validateForm() {
+    // Singapore telephone number consists of 8 digits, start with 6, 8 or 9
+    var phoneNumber = document.getElementById('Phone').value.trim();
+    if (phoneNumber !== "") {
+        if (!/^[689]\d{7}$/.test(phoneNumber)) {
+            alert("Phone number in Singapore should start with 6, 8, or 9 and consist of 8 digits.");
+            return false;
+        }
+    }
+    return true;  
+}
 </script>
