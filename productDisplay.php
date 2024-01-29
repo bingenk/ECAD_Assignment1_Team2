@@ -91,7 +91,9 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 } else {
     echo "<p>Please select at least one category.</p>";
 }
+include('footer.php');
 ?>
+
 
 <style>
 .product-grid {

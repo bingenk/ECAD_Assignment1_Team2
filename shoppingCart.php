@@ -132,20 +132,32 @@ if (isset($_SESSION["Cart"])) {
   echo '<div class="totals-value" id="cart-total">'.$totalprice.'</div>';
   echo '</div>';
   echo '</div>';
-  echo '<button class="checkout">Checkout</button>';
+  echo "<form method='post' action='checkout.php'>";		
+  echo '<button class="checkout" href="checkout.php">Checkout</button>';
+  echo "</form>";
+
   echo '</div>';  
+
+
+
+
+
+
+
+
+
 		}
     else {      
       echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
-      echo "</div>";
+      echo '</div>';
     }
 
 }
  
 
-else {    
-	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>"; 
-  echo "</div>";
+else {
+	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+  echo '</div>';
 }
 
 
