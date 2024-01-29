@@ -3826,7 +3826,6 @@ label {
 /* Make adjustments for tablet */
 @media screen and (max-width: 650px) {
   .shopping-cart {
-    margin: 40px;
     padding-top: 20px;
     border-top: 1px solid #eee;
   }
@@ -3947,4 +3946,28 @@ label {
 #forget_password:hover {
   color: blue;
   text-decoration: underline;
+}
+
+.header_forgetpassword {
+  font-weight: bold;
+  font-size: 25px;
+  margin: 20px;
+}
+
+#email_forget {
+  max-width: 550px;
+  padding: 8px 0px 8px 5px;
+  border-radius: 4px;
+}
+
+#submit_forget {
+  margin: 20px;
+  background-color: var(--salmon-pink);
+  color: white;
+  padding: 9px 16px 9px 16px;
+  border-radius: 6px;
+}
+
+#submit_forget:hover {
+  background-color: hsl(353, 95%, 76%);
 }

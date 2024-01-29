@@ -71,7 +71,7 @@ if (isset($_GET['error'])) {
         <?php endif; ?>
         <input type="email" name="Log_In_Email" id="Log_In_Email" placeholder="Email" required maxlength="50"/>
         <input type="password" name="Log_In_Password" id="Log_In_Password" placeholder="Password" required maxlength="20"/>
-        <a href="#" id="forget_password">Forget Your Password?</a>
+        <a href="forgetPassword.php" id="forget_password">Forget Your Password?</a>
         <button type="submit">Sign In</button>
     </form>
 </div>

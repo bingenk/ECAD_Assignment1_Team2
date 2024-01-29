@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone = $_POST["Phone"];
     $address = $_POST["Address"];
     $country = $_POST["Country"];
-    $password1 = $_POST["Sign_Up_Password"];
+    $password = $_POST["Sign_Up_Password"];
     $security_question = $_POST["Security_Question"];
     $answer = $_POST["Answer"];
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Create a password hash using the default bcrypt algorithm
-    $password = password_hash($password1, PASSWORD_DEFAULT);
+   
 
     // Define the INSERT SQL statement
     $qry = "INSERT INTO Shopper (Name, BirthDate, Address, Country, Phone, Email, Password, PwdQuestion, PwdAnswer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

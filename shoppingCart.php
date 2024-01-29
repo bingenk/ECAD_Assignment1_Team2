@@ -133,21 +133,19 @@ if (isset($_SESSION["Cart"])) {
   echo '</div>';
   echo '</div>';
   echo '<button class="checkout">Checkout</button>';
-  echo '</div>';
+  echo '</div>';  
 		}
-    else {
+    else {      
       echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+      echo "</div>";
     }
-
-
-
-
 
 }
  
 
-else {
-	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+else {    
+	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>"; 
+  echo "</div>";
 }
 
 

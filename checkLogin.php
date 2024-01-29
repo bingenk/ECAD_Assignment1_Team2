@@ -26,7 +26,7 @@ if ($result->num_rows > 0) { // SQL statement executed successfully
     $row = $result->fetch_array();
     $hashed_pwd = $row["Password"];
     
-    if (password_verify($pwd, $hashed_pwd) || $pwd == $hashed_pwd) {
+    if ($pwd == $hashed_pwd) {
         // Successful login logic
 
         // Set session variables for ShopperID and ShopperName
