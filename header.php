@@ -3,7 +3,6 @@ session_start();
 
 // Check if user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
-<<<<<<< HEAD
 if (!empty($_POST['currency'])) {
   $selectedCurrency = $_POST['currency'];
 
@@ -32,10 +31,9 @@ if (isset($_SESSION['conversion_rates'])) {
 
     echo "Price in $selectedCurrency: $convertedPrice";
 }
-=======
+?>
 
-// Database connection
-include_once('mysql_conn.php');
+<?php include_once('mysql_conn.php');
 
 // Initialize user name variable
 $userName = "Guest";
@@ -53,8 +51,6 @@ if ($isUserLoggedIn) {
         $userName = $row['Name'];
     }
 }
-
->>>>>>> a43dc5e298b5a5fe171588a849f7c61eb893b6ac
 ?>
 
 
@@ -283,17 +279,6 @@ if ($isUserLoggedIn) {
             <ion-icon name="heart-outline"></ion-icon>
             <span class="count">0</span>
           </button>
-
-
-
-
-
-
-
-
-
-
-
           <?php 
 // Start the session
 
