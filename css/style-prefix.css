@@ -1082,6 +1082,39 @@ body::-webkit-scrollbar-thumb:hover {
   border-bottom: 1px solid var(--cultured);
 }
 
+.category-checkbox {
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-checkbox label {
+  display: flex;
+  align-items: center;
+}
+
+.category-checkbox label input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.filter-button {
+  padding: 4px 12px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: var(--salmon-pink);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: hsl(353, 95%, 76%);
+}
+
 .sidebar-top {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3441,7 +3474,6 @@ footer {
   text-decoration: none;
   margin: 15px 0 10px;
 }
-
 .register-container button {
   background-color: var(--salmon-pink);
   color: #fff;
@@ -3794,7 +3826,6 @@ label {
 /* Make adjustments for tablet */
 @media screen and (max-width: 650px) {
   .shopping-cart {
-    margin: 40px;
     padding-top: 20px;
     border-top: 1px solid #eee;
   }
@@ -3900,7 +3931,7 @@ label {
 .dropdown-content .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 5px; /* Adjust the gap as needed */
+  gap: 5px;
 }
 
 .dropdown-item a {
@@ -3912,38 +3943,31 @@ label {
   font-weight: 450;
 }
 
-
-/* /sidebar  */
-.sidebar-category {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#forget_password:hover {
+  color: blue;
+  text-decoration: underline;
 }
 
-.category-checkbox {
-  margin-bottom: 15px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.header_forgetpassword {
+  font-weight: bold;
+  font-size: 25px;
+  margin: 20px;
 }
 
-.category-checkbox label {
-  display: flex;
-  align-items: center;
-}
-
-.filter-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #4CAF50; /* Example color */
-  color: white;
-  border: none;
+#email_forget {
+  max-width: 550px;
+  padding: 8px 0px 8px 5px;
   border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
 }
 
-.filter-button:hover {
-  background-color: #45a049; /* Darker shade for hover effect */
+#submit_forget {
+  margin: 20px;
+  background-color: var(--salmon-pink);
+  color: white;
+  padding: 9px 16px 9px 16px;
+  border-radius: 6px;
+}
+
+#submit_forget:hover {
+  background-color: hsl(353, 95%, 76%);
 }
