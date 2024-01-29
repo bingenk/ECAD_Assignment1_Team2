@@ -137,6 +137,7 @@ if (isset($_SESSION["Cart"])) {
 		}
     else {
       echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+      echo '</div>';
     }
 
 
@@ -148,6 +149,7 @@ if (isset($_SESSION["Cart"])) {
 
 else {
 	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+  echo '</div>';
 }
 
 

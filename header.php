@@ -4,7 +4,36 @@ session_start();
 
 // Check if user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
+if (!empty($_POST['currency'])) {
+  $selectedCurrency = $_POST['currency'];
+
+  // Your API key
+  $apiKey = '0034b819603ae4ceb5e116ea';
+  $req_url = "https://v6.exchangerate-api.com/v6/{$apiKey}/latest/SGD";
+
+  $response_json = file_get_contents($req_url);
+  $response = json_decode($response_json);
+
+  if ($response && $response->result == 'success') {
+      // Store the conversion rates in session
+      $_SESSION['conversion_rates'] = $response->conversion_rates;
+      $_SESSION['selected_currency'] = $selectedCurrency;
+  }
+}
+
+// Check if conversion rates are stored in the session
+if (isset($_SESSION['conversion_rates'])) {
+    $conversionRates = $_SESSION['conversion_rates'];
+    $selectedCurrency = $_SESSION['selected_currency'];
+
+    // Example: Convert a base price to the selected currency
+    $basePrice = 10; // Example price in USD
+    $convertedPrice =  $conversionRates->$selectedCurrency;
+
+    echo "Price in $selectedCurrency: $convertedPrice";
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -145,12 +174,15 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
 
         <div class="header-top-actions">
 
-          <select name="currency">
+        <form method="post">
+            <select name="currency" id="currency-select" onchange="this.form.submit()">
+                <option value="SGD">SGD $</option>
+                <option value="SGD">SGD $</option>
+                <option value="EUR">EUR €</option>
+                <option value="USD">USD $</option>
+            </select>
+        </form>
 
-            <option value="usd">SGD &dollar;</option>
-            <option value="eur">USD &dollar;</option>
-
-          </select>
 
           <select name="language">
 
@@ -229,41 +261,60 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
             <span class="count">0</span>
           </button>
 
-          <a href="shoppingCart.php">
-            <button class="action-btn" id="cartButton">
-              <ion-icon name="bag-handle-outline"></ion-icon>
-              <?php if ($isUserLoggedIn):
-              include_once('mysql_conn.php');
 
-                  $shopper_id = $_SESSION['ShopperID'];
 
-                  $query = "SELECT SUM(Quantity) AS total_quantity
-                  FROM shopcartitem
-                  WHERE ShopCartID IN (
-                      SELECT ShopCartID
-                      FROM shopcart
-                      WHERE ShopperID = $shopper_id
-                      AND OrderPlaced = 0
-                  )
-                  "
-                          
-                            ;
 
-                  $result = $conn->query($query);
 
-                  if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc();
-                      $totalQuantity = $row['total_quantity'];
-                      echo "<span class='count'>$totalQuantity</span>";
-                  } else {
-                      $totalQuantity = 0; // Set to 0 if there are no items in the cart
-          
-                  }
-                          endif; ?>
-                          
-      
-            </button>         
-          </a>    
+
+
+
+
+
+
+          <?php 
+// Start the session
+
+
+// Check if the user is logged in
+$isUserLoggedIn = isset($_SESSION['ShopperID']);
+
+// Determine the link's HREF based on login status
+$linkHref = $isUserLoggedIn ? "shoppingCart.php" : "login.php";
+
+// Continue with the rest of your logged-in user's logic if logged in
+if ($isUserLoggedIn):
+    include_once('mysql_conn.php');
+    $shopper_id = $_SESSION['ShopperID'];
+
+    $query = "SELECT SUM(Quantity) AS total_quantity
+              FROM shopcartitem
+              WHERE ShopCartID IN (
+                  SELECT ShopCartID
+                  FROM shopcart
+                  WHERE ShopperID = $shopper_id
+                  AND OrderPlaced = 0
+              )";
+
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $totalQuantity = $row['total_quantity'];
+    } else {
+        $totalQuantity = 0; // Set to 0 if there are no items in the cart
+    }
+endif;
+?>
+
+<!-- Shopping Cart Link -->
+<a href="<?php echo $linkHref; ?>" class="action-btn" id="cartButton">
+    <ion-icon name="bag-handle-outline"></ion-icon>
+    <?php if ($isUserLoggedIn && $totalQuantity > 0): ?>
+        <span class='count'><?php echo $totalQuantity; ?></span>
+    <?php endif; ?>
+</a>
+
+
 
         </div>
 
@@ -282,6 +333,11 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
         function redirectToLogin() {
             window.location.href = 'login.php';
         }
+
+
+
+    
+        
     </script>
 
 
