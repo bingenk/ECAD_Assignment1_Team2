@@ -70,6 +70,7 @@ if ($isUserLoggedIn) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -275,19 +276,20 @@ if ($isUserLoggedIn) {
 
             
 
-          <button class="action-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">0</span>
-          </button>
+          <a class="action-btn" id="feedbackButton" style="cursor: pointer;">
+            <ion-icon name="chatbox-ellipses-outline"></ion-icon>            
+          </a>
           <?php 
 // Start the session
 
 
 // Check if the user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
+$linkFeedback = $isUserLoggedIn ? "feedback.php" : "login.php";
 
 // Determine the link's HREF based on login status
 $linkHref = $isUserLoggedIn ? "shoppingCart.php" : "login.php";
+$linkFeedback = $isUserLoggedIn ? "feedback.php" : "login.php";
 
 // Continue with the rest of your logged-in user's logic if logged in
 if ($isUserLoggedIn):
@@ -342,10 +344,18 @@ endif;
             window.location.href = 'login.php';
         }
 
+        function redirectToFeedback() {
+            window.location.href = 'feedback.php';
+        }
 
-
-    
-        
+        document.getElementById('feedbackButton').addEventListener('click', function() {
+        <?php if ($isUserLoggedIn): ?>
+            window.location.href = 'feedback.php';
+        <?php else: ?>
+            window.location.href = 'login.php';
+        <?php endif; ?>
+      });
+            
     </script>
 
 

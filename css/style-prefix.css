@@ -1,4 +1,4 @@
-   :root {
+:root {
   /**
      * colors
      */
@@ -3970,4 +3970,52 @@ label {
 
 #submit_forget:hover {
   background-color: hsl(353, 95%, 76%);
+}
+
+/* Feedback */
+.testimonial-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.testimonial {
+  flex-basis: calc(33.333% - 20px);
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.testimonial img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+.testimonial p {
+  font-size: 14px;
+}
+.testimonial .name {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.testimonial .role {
+  color: #777;
+  font-size: 12px;
+}
+.rating-wrapper {
+  color: #ffd700;
+  display: flex;
+  justify-content: center;
+  margin: 17px;
+}
+
+@media (max-width: 768px) {
+  .testimonial-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .testimonial {
+    flex-basis: 90%;
+  }
 }
