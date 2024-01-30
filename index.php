@@ -1,7 +1,7 @@
 <?php 
 include('header.php'); 
-include('navbar.php') 
-
+include('navbar.php');
+include('feedbackDisplay.php');
 ?>
 <!-- MAIN -->
 <main>
@@ -792,46 +792,10 @@ include('navbar.php')
   </div>           
 
   <!-- Feedback -->
-  <h2 class="title" style="margin: 25px;">Rating & Feedback</h2>
+  <h2 class="title" style="margin: 25px;">Rating & Feedback</h2>  
   <div class="testimonial-container">
-    <div class="testimonial">      
-      <div class="rating-wrapper">
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-      </div>
-      <p>"It was popularised in the 1960s with the release of Letraset sheets containing Lorem passages and more recently with desktop publishing software like including."</p>
-      <div class="name">Willow Peralta</div>
-      <div class="feedback_date">2015-12-23</div>
-    </div>
-
-    <div class="testimonial">      
-      <div class="rating-wrapper">
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-      </div>
-      <p>"It was popularised in the 1960s with the release of Letraset sheets containing Lorem passages and more recently with desktop publishing software like including."</p>
-      <div class="name">Willow Peralta</div>
-      <div class="feedback_date">2015-12-23</div>
-    </div>
-
-    <div class="testimonial">      
-      <div class="rating-wrapper">
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-      </div>
-      <p>"It was popularised in the 1960s with the release of Letraset sheets containing Lorem passages and more recently with desktop publishing software like including."</p>
-      <div class="name">Willow Peralta</div>
-      <div class="feedback_date">2015-12-23</div>
-    </div>    
+    <?php displayFeedback(); // Call the function to display feedback ?>
+  </div>
   </div>
 </main>
 
