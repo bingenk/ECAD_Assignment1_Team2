@@ -200,7 +200,7 @@ include('mysql_conn.php');
     <!-- PRODUCT ON OFFER -->
     <?php       
       $currentDate = date('Y-m-d');
-      $query = "SELECT * FROM Product WHERE Offered = 1 AND '$currentDate' >= OfferStartDate AND '$currentDate' <= OfferEndDate";
+      $query = "SELECT * FROM Product WHERE Offered = 1 AND '$currentDate' >= OfferStartDate AND '$currentDate' <= OfferEndDate ORDER BY ProductTitle ASC";
       $result = $conn->query($query);
             
       echo '<div class="product-main">';
@@ -223,7 +223,7 @@ include('mysql_conn.php');
               echo "<div class='showcase-content'>";
               echo "<a href='productDetails.php?pid=" . $row['ProductID'] . "' class='showcase-category'>" . htmlspecialchars($row['ProductTitle']) . "</a>";
               echo "<h3 class='showcase-title short-description'>";
-              echo htmlspecialchars(mb_strimwidth($row['ProductDesc'], 0, 80, '...')); 
+              echo htmlspecialchars(mb_strimwidth($row['ProductDesc'], 0, 60, '...')); 
               echo "</h3>"; 
               echo "<p class='showcase-title expanded-description'>";
       
