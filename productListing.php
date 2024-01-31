@@ -37,7 +37,7 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 
             if ($isOfferValid) {
                 $discountPercentage = round((1 - ($row['OfferedPrice'] / $row['Price'])) * 100);
-                echo "<p class='showcase-badge'>{$discountPercentage}%</p>";
+                echo "<p class='showcase-badge'>Offer {$discountPercentage}%</p>";
             }
 
             // Buttons (like, view, etc.)
