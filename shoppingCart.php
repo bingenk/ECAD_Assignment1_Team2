@@ -59,7 +59,7 @@ if (isset($_SESSION["Cart"])) {
       echo "<div class='product-title'>$row[Name]</div>";
       echo "<p class='product-description'>$row[ProductDesc]</p>";
       echo "</div>";
-      echo "<div class='product-price'>S$ $formattedPrice</div>";
+      echo "<div class='product-price'>$formattedPrice</div>";
       echo "<form action='cartFunctions.php' method='post'>";
 			echo "<select name='quantity' onChange='this.form.submit()' >";
 			for($i=1; $i<=10; $i++) {
