@@ -20,6 +20,9 @@ $stmt->close();
 
 // Display Product information
 if ($row=$result->fetch_array()){
+      $currentDate = date('Y-m-d');
+      $isOnOffer = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
+
       // Display Product's image on the left
       $img = "./Images/products/$row[ProductImage]";
       echo "<div class='row' style='display:flex; align-items: center;'>";
@@ -47,8 +50,13 @@ if ($row=$result->fetch_array()){
       }
 
       // Display the product's price and Add to Cart form
-      $formattedPrice = number_format($row["Price"],2);
-      echo "<p style='font-size: 1.4em; color: red; font-weight: bold; margin-bottom: 15px;'>S$ $formattedPrice</p>";
+      if ($isOnOffer && $row['OfferedPrice'] < $row['Price']) {
+            $formattedOfferPrice = number_format($row["OfferedPrice"], 2);
+            echo "<p style='font-size: 1.4em; color: red; font-weight: bold; margin-bottom: 15px;'>S$ $formattedOfferPrice</p>";
+        } else {
+            $formattedPrice = number_format($row["Price"], 2);
+            echo "<p style='font-size: 1.4em; color: red; font-weight: bold; margin-bottom: 15px;'>S$ $formattedPrice</p>";
+        }
       echo "<form action='cartFunctions.php' method='post' style='margin-bottom: 15px;'>";
       echo "<input type='hidden' name='action' value='add' />";
       echo "<input type='hidden' name='product_id' value='$pid' />";

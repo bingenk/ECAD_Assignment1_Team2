@@ -24,7 +24,7 @@ if (isset($_SESSION["Cart"])) {
 	include_once("mysql_conn.php");
 	// To Do 1 (Practical 4): 
 	// Retrieve from database and display shopping cart in a table
-	$qry = "SELECT s.*, p.ProductImage, p.ProductDesc, (s.Price * s.Quantity) AS Total
+	$qry = "SELECT s.*, p.ProductImage, p.ProductDesc, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate, (s.Price * s.Quantity) AS Total
         FROM ShopCartItem s
         INNER JOIN Product p ON s.ProductID = p.ProductID
         WHERE s.ShopCartID = ?";
@@ -40,6 +40,16 @@ if (isset($_SESSION["Cart"])) {
     $_SESSION["Items"] = array();
     $subTotal = 0; 
     while ($row = $result->fetch_array()) {
+      $currentDate = date('Y-m-d');
+      $isOnOffer = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
+        
+      // Choose the correct price based on whether the item is on offer
+      $price = $isOnOffer ? $row["OfferedPrice"] : $row["Price"];
+      $totalPrice = $price * $row["Quantity"];
+      $formattedPrice = number_format($price, 2);
+      $formattedTotal = number_format($totalPrice, 2);
+
+
       array_push($_SESSION["Items"], $row["ProductID"]);
       echo "<div class='product'>";
       echo "<div class='product-image'>";
@@ -49,7 +59,7 @@ if (isset($_SESSION["Cart"])) {
       echo "<div class='product-title'>$row[Name]</div>";
       echo "<p class='product-description'>$row[ProductDesc]</p>";
       echo "</div>";
-      echo "<div class='product-price'>$row[Price]</div>";
+      echo "<div class='product-price'>S$ $formattedPrice</div>";
       echo "<form action='cartFunctions.php' method='post'>";
 			echo "<select name='quantity' onChange='this.form.submit()' >";
 			for($i=1; $i<=10; $i++) {
@@ -71,8 +81,7 @@ if (isset($_SESSION["Cart"])) {
       echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
       echo "<button class='remove-product'>Remove</button>";
       echo "</div>";
-      echo "</form>";
-      $formattedTotal = number_format($row["Total"], 2);
+      echo "</form>";      
       echo "<div class='product-line-price'>$formattedTotal</div>";
       echo "</div>";
        // Store the shopping cart items in session variable as an associate array

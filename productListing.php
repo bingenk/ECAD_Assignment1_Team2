@@ -66,10 +66,10 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
             // Price box
             echo "<div class='price-box'>";
             if ($isOfferValid) {
-                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice']) . "</p>";
-                echo "<del>$" . htmlspecialchars($row['Price']) . "</del>";
+                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice'],2) . "</p>";
+                echo "<del>$" . htmlspecialchars($row['Price'],2) . "</del>";
             } else {
-                echo "<p class='price'>$" . htmlspecialchars($row['Price']) . "</p>";
+                echo "<p class='price'>$" . htmlspecialchars($row['Price'],2) . "</p>";
             }
             echo "</div>"; // .price-box
             echo "</div>"; // .showcase-content
