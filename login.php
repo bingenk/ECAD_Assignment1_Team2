@@ -6,6 +6,9 @@ include("header.php");
 
 $login_error_message = '';
 $register_error_message = '';
+if(isset($_SESSION['ShopperID'])){
+  echo '<meta http-equiv="refresh" content="0;url=index.php">';
+}
 
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 'password') {
