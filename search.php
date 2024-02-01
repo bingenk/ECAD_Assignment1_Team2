@@ -1,11 +1,18 @@
 <?php 
 include("header.php"); // Include the Page Layout header
-?>
 
-<?php
-if (isset($_GET["search"]) && trim($_GET['search']) != "") {
+// Check if the search query is set and not empty
+if (isset($_GET["search"])) {
+    // Trim the search query and check if it's empty
+    $searchQuery = trim($_GET["search"]);
+    if ($searchQuery == "") {
+        // Redirect to index.php if the search query is empty
+        echo '<script>window.location.href="index.php";</script>';     
+        exit();
+    }
+
     include_once("mysql_conn.php");
-    $qry = "SELECT * FROM product WHERE ProductTitle LIKE '%" . $_GET["search"] . "%' OR ProductDesc LIKE '%" . $_GET["search"] . "%'";
+    $qry = "SELECT * FROM product WHERE ProductTitle LIKE '%" . $conn->real_escape_string($searchQuery) . "%' OR ProductDesc LIKE '%" . $conn->real_escape_string($searchQuery) . "%'";
     $result = $conn->query($qry);
 
     if ($result->num_rows > 0) {
@@ -27,6 +34,10 @@ if (isset($_GET["search"]) && trim($_GET['search']) != "") {
     } else {
         echo "<p>No products found for the search query.</p>";
     }
+} else {
+    // Redirect to index.php if the search parameter is not set
+    header("Location: index.php");
+    exit();
 }
 
 include("footer.php"); // Include the Page Layout footer

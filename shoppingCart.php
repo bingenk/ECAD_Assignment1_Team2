@@ -24,23 +24,36 @@ if (isset($_POST['shipping_option'])) {
         <label class="product-line-price">Total</label>
     </div>
 
-    <?php
-    if (isset($_SESSION["Cart"])) {
-        include_once("mysql_conn.php");
-        $qry = "SELECT s.*, p.ProductImage, p.ProductDesc, (s.Price * s.Quantity) AS Total
-                FROM ShopCartItem s
-                INNER JOIN Product p ON s.ProductID = p.ProductID
-                WHERE s.ShopCartID = ?";
-        $stmt = $conn->prepare($qry);
-        $stmt->bind_param("i", $_SESSION["Cart"]);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+  <?php
+if (isset($_SESSION["Cart"])) {
+	include_once("mysql_conn.php");
+	// To Do 1 (Practical 4): 
+	// Retrieve from database and display shopping cart in a table
+	$qry = "SELECT s.*, p.ProductImage, p.ProductDesc, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate, (s.Price * s.Quantity) AS Total
+        FROM ShopCartItem s
+        INNER JOIN Product p ON s.ProductID = p.ProductID
+        WHERE s.ShopCartID = ?";
 
         if ($result->num_rows > 0) {
             $subTotal = 0;
             while ($row = $result->fetch_array()) {
 
+	if ($result->num_rows > 0) {
+
+    $_SESSION["Items"] = array();
+    $subTotal = 0; 
+    while ($row = $result->fetch_array()) {
+      $currentDate = date('Y-m-d');
+      $isOnOffer = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
+        
+      // Choose the correct price based on whether the item is on offer
+      $price = $isOnOffer ? $row["OfferedPrice"] : $row["Price"];
+      $totalPrice = $price * $row["Quantity"];
+      $formattedPrice = number_format($price, 2);
+      $formattedTotal = number_format($totalPrice, 2);
+
+
+      array_push($_SESSION["Items"], $row["ProductID"]);
       echo "<div class='product'>";
       echo "<div class='product-image'>";
       echo "<img src='Images/Products/$row[ProductImage]' />";
@@ -55,6 +68,9 @@ if (isset($_POST['shipping_option'])) {
   echo "<form action='cartFunctions.php' method='post'>";
   echo "<div class='product-quantity'>";
   echo "<select name='quantity' onChange='this.form.submit()'>";
+      echo "<div class='product-price'>$formattedPrice</div>";
+      echo "<form action='cartFunctions.php' method='post'>";
+			echo "<select name='quantity' onChange='this.form.submit()' >";
 			for($i=1; $i<=10; $i++) {
 				if ($i == $row["Quantity"]) 
 					// Select drop-down list item with value same as the quantity of purchase
@@ -66,20 +82,10 @@ if (isset($_POST['shipping_option'])) {
       echo "</select>";
       echo "<input type='hidden' name='action' value='update' />";
       echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
-      echo "</div>"; // Close product-quantity
-      echo "</form>";
-
-     echo "<form action='cartFunctions.php' method='post'>";
-  echo "<div class='product-removal'>";
-  echo "<input type='hidden' name='action' value='remove' />";
-  echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
-  echo "<button class='remove-product'>Remove</button>";
-  echo "</div>"; // Close product-removal
-  echo "</form>";
-
-  $formattedTotal = number_format($row["Total"], 2);
-  echo "<div class='product-line-price'>$formattedTotal</div>";
-
+      echo "<button class='remove-product'>Remove</button>";
+      echo "</div>";
+      echo "</form>";      
+      echo "<div class='product-line-price'>$formattedTotal</div>";
       echo "</div>";
        // Store the shopping cart items in session variable as an associate array
 				$_SESSION["Items"][]=array("productId"=>$row["ProductID"],
@@ -175,11 +181,13 @@ if (isset($_POST['shipping_option'])) {
     }
 
 }
+        }
  
 
 else {
 	echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
   echo '</div>';
+}
 }
 
 

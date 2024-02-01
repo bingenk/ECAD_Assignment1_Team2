@@ -9,7 +9,7 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 
     // Prepare SQL query with JOINs
     $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
-    $query = "SELECT p.ProductID, p.ProductTitle, p.ProductDesc, p.ProductImage, p.Price, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate FROM product p 
+    $query = "SELECT p.ProductID, p.ProductTitle, p.ProductDesc, p.ProductImage, p.Price, p.Quantity, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate FROM product p 
               INNER JOIN catproduct cp ON p.ProductID = cp.ProductID 
               INNER JOIN category c ON cp.CategoryID = c.CategoryID 
               WHERE c.CatName IN ($placeholders)
@@ -28,6 +28,7 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
             // Check for valid offer
             $currentDate = date('Y-m-d');
             $isOfferValid = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
+            $isOutOfStock = $row['Quantity'] <= 0;
 
             // Start showcase
             echo "<div class='showcase'>";
@@ -37,7 +38,11 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 
             if ($isOfferValid) {
                 $discountPercentage = round((1 - ($row['OfferedPrice'] / $row['Price'])) * 100);
-                echo "<p class='showcase-badge'>{$discountPercentage}%</p>";
+                echo "<p class='showcase-badge'>Offer {$discountPercentage}%</p>";
+            }
+
+            if ($isOutOfStock) {
+                echo "<p class='showcase-badge' style='background-color: red;  color: white; font-weight: var(--weight-500); padding: 0 8px; border-radius: var(--border-radius-sm); display: inline-block;'>Out of Stock!</p> ";
             }
 
             // Buttons (like, view, etc.)
@@ -66,10 +71,10 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
             // Price box
             echo "<div class='price-box'>";
             if ($isOfferValid) {
-                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice']) . "</p>";
-                echo "<del>$" . htmlspecialchars($row['Price']) . "</del>";
+                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice'],2) . "</p>";
+                echo "<del>$" . htmlspecialchars($row['Price'],2) . "</del>";
             } else {
-                echo "<p class='price'>$" . htmlspecialchars($row['Price']) . "</p>";
+                echo "<p class='price'>$" . htmlspecialchars($row['Price'],2) . "</p>";
             }
             echo "</div>"; // .price-box
             echo "</div>"; // .showcase-content
