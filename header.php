@@ -285,7 +285,6 @@ if ($isUserLoggedIn) {
 
 // Check if the user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
-$linkFeedback = $isUserLoggedIn ? "feedback.php" : "login.php";
 
 // Determine the link's HREF based on login status
 $linkHref = $isUserLoggedIn ? "shoppingCart.php" : "login.php";

@@ -4,8 +4,8 @@ include('navbar.php');
 include('mysql_conn.php'); // Include your database connection file
 
 // Check if any category is selected
-if (isset($_GET['category']) && is_array($_GET['category'])) {
-    $selectedCategories = $_GET['category'];
+if (isset($_GET['category'])) {
+    $selectedCategories = (array) $_GET['category'];
 
     // Prepare SQL query with JOINs
     $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
