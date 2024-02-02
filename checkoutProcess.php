@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("header.php"); 
+
 include_once("myPayPal.php"); 
 include_once("mysql_conn.php"); 
 
@@ -18,7 +18,6 @@ if($_POST)
 		if ($row["Quantity"] < $item["quantity"]){
 			echo "<div style='color:red'><b>Product $item[productId]: $item[name] is out of stock.</b></div>";
 			echo "<div style='color:red'><b>Please return to shopping cart to amend your purchase.</b></div>";
-			include("footer.php"); 
 			exit;
 		}
 	}
@@ -30,11 +29,8 @@ if($_POST)
 	  	$paypal_data .= '&L_PAYMENTREQUEST_0_AMT'.$key.'='.urlencode($item["price"]);
 	  	$paypal_data .= '&L_PAYMENTREQUEST_0_NAME'.$key.'='.urlencode($item["name"]);
 		$paypal_data .= '&L_PAYMENTREQUEST_0_NUMBER'.$key.'='.urlencode($item["productId"]);
+		
 	}
-	
-	$_SESSION["Tax"] = round($_SESSION["SubTotal"]*0.09,2);
-
-	$_SESSION["ShipCharge"] = 2.00; 
 	
 	$padata = '&CURRENCYCODE='.urlencode($PayPalCurrencyCode).
 			  '&PAYMENTACTION=Sale'.
@@ -46,10 +42,10 @@ if($_POST)
 			  '&PAYMENTREQUEST_0_ITEMAMT='.urlencode($_SESSION["SubTotal"]). 
 			  '&PAYMENTREQUEST_0_SHIPPINGAMT='.urlencode($_SESSION["ShipCharge"]). 
 			  '&PAYMENTREQUEST_0_TAXAMT='.urlencode($_SESSION["Tax"]). 	
-			  '&BRANDNAME='.urlencode("Mamaya e-BookStore").
+			  '&BRANDNAME='.urlencode("FloraGifts").
 			  $paypal_data.				
 			  '&RETURNURL='.urlencode($PayPalReturnURL ).
-			  '&CANCELURL='.urlencode($PayPalCancelURL);	
+			  '&CANCELURL='.urlencode($PayPalCancelURL);
 		
 	$httpParsedResponseAr = PPHttpPost('SetExpressCheckout', $padata, $PayPalApiUsername, 
 	                                   $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
@@ -139,6 +135,7 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 			$ShipName = addslashes(urldecode($httpParsedResponseAr["SHIPTONAME"]));
 			
 			$ShipAddress = urldecode($httpParsedResponseAr["SHIPTOSTREET"]);
+
 			if (isset($httpParsedResponseAr["SHIPTOSTREET2"]))
 				$ShipAddress .= ' '.urldecode($httpParsedResponseAr["SHIPTOSTREET2"]);
 			if (isset($httpParsedResponseAr["SHIPTOCITY"]))
@@ -185,6 +182,4 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 		echo "<pre>".print_r($httpParsedResponseAr)."</pre>";
 	}
 }
-
-include("footer.php"); // Include the Page Layout footer
 ?>

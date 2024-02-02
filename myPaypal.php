@@ -1,30 +1,30 @@
 <?php
 
+$PayPalMode  = 'sandbox';
+$PayPalApiUsername  = 'sb-0hags26657120_api1.business.example.com';
+$PayPalApiPassword 	= 'CMZ88ZBDWG6XGSZ8'; 		
+$PayPalApiSignature = 'AGYVyZWqa4Oe.-gbVfF54kS0WjsiAw5skua5P46dST2tHx.6wlZDhOxP'; 		
+$PayPalCurrencyCode  = 'SGD'; 
+$PayPalReturnURL  	= 'http://localhost:8081/xampp/ECAD_Assignment1_Team2/orderConfirmation';                
+$PayPalCancelURL 	= 'http://localhost:8081/xampp/ECAD_Assignment1_Team2/shoppingCart'; 
+
 function PPHttpPost($methodName_, $nvpStr_, $PayPalApiUsername, $PayPalApiPassword, 
                     $PayPalApiSignature, $PayPalMode) {
 
-	$mode = 'sandbox';
-	$username = 'sb-47utoi26655415_api1.business.example.com';
-	$password 	= 'LBMMVUE59JHSA2ZT'; 		
-	$signature = 'ACG-17lDLyRJmfHnqEisXTxHB5O4AKwZhFrwOrR2JwDNRhre0imvPT-4'; 		
-	$currencyCode = 'SGD'; 
-	$returnURL 	= '';                
-	$cancelURL 	= ''; 
-
-    $APIUserName = urlencode($username);
-	$APIPassword = urlencode($password);
-	$APISignature = urlencode($signature);
+	$API_UserName = urlencode($PayPalApiUsername);
+	$API_Password = urlencode($PayPalApiPassword);
+	$API_Signature = urlencode($PayPalApiSignature);
 			
-	if($mode=='sandbox'){
-		$mode = '.sandbox';
+	if($PayPalMode=='sandbox'){
+		$paypalmode = '.sandbox';
 	}
 	else {
-		$mode = '';
+		$paypalmode = '';
 	}
 	
-	$API_Endpoint = "https://api-3t".$mode.".paypal.com/nvp";
+	$API_Endpoint = "https://api-3t".$paypalmode.".paypal.com/nvp";
 	$version = urlencode('109.0');
-			
+		
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);			
@@ -34,9 +34,9 @@ function PPHttpPost($methodName_, $nvpStr_, $PayPalApiUsername, $PayPalApiPasswo
 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);	
-			
+				
 	$nvpreq = "METHOD=$methodName_&VERSION=$version";
-	$nvpreq .= "&PWD=$APIPassword&USER=$APIUserName&SIGNATURE=$APISignature$nvpStr_";
+	$nvpreq .= "&PWD=$API_Password&USER=$API_UserName&SIGNATURE=$API_Signature$nvpStr_";
 			
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
 		
