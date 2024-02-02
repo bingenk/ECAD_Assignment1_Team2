@@ -5,6 +5,8 @@
 
   $cartId = 0;
 
+  $canCheckout = true;
+
   if (isset($_SESSION['Cart']) && isset($_SESSION["Items"]))
   {
     $cartId = $_SESSION['Cart'];
@@ -19,7 +21,6 @@
     header("Location: index.php");
     exit;
   }
-  echo "<pre>".print_r($_SESSION['Items'])."</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +42,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
 </head>
 <body>
     
@@ -53,65 +53,84 @@
             <div class='line'></div>
             <div class="order-container">
               <?php
-                  $stmt = $conn->prepare("SELECT sci.Name, sci.Price, sci.Quantity, p.ProductImage, p.ProductId FROM ShopCartItem sci LEFT JOIN Product p 
-                                      ON sci.ProductID=p.ProductID 
-                                      WHERE sci.ShopCartID= ?");
-                  $stmt->bind_param("i", $cartId);
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  if ($result->num_rows > 0)
-                  {
-                    while($row = $result->fetch_array())
-                    {
-                      $productName = $row['Name'];
-                      $productPrice = $row['Price'];
-                      $productQuantity = $row['Quantity'];
-                      $productImage = $row['ProductImage'];
-                      
-                      echo "<table class='order-table'>";
-                      echo "<tbody>";
-                      echo "<tr>";
-                      echo "<td><img src='./Images/Products/$productImage' class='full-width'></img></td>";
-                      echo "<td>";
-                      echo "<br> <span class='thin'>$productName</span>";
-                      echo "<br> <span class='thin small'>Quantity: $productQuantity<br><br></span>";
-                      echo "</td>";
-                      echo "</tr>";
-                      echo "<tr>";
-                      echo "<td>";
-                      echo "<div class='price'>$$productPrice</div>";
-                      echo "</td>";
-                      echo "</tr>";
-                      echo "</tbody>";
-                      echo "</table>";
-                      echo "<div class='line'></div>";
-                    }
-                  }
-
-                if (isset($_SESSION["selected_shipping"]))
+                $stmt = $conn->prepare("SELECT sci.Name, sci.Price, sci.Quantity, p.ProductImage, p.ProductId, p.Quantity as Stock FROM ShopCartItem sci LEFT JOIN Product p 
+                                    ON sci.ProductID=p.ProductID 
+                                    WHERE sci.ShopCartID= ?");
+                $stmt->bind_param("i", $cartId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0)
                 {
-                  $shippingType = $_SESSION["selected_shipping"];
-                  if (isset($_SESSION["is_free"]))
+                  while($row = $result->fetch_array())
                   {
-                    $shipping = 0;
-                  }
-                  else
-                  {
-                    if ($shippingType == "normal")
+                    $productName = $row['Name'];
+                    $productPrice = $row['Price'];
+                    $productQuantity = $row['Quantity'];
+                    $productImage = $row['ProductImage'];
+                    
+                    echo "<table class='order-table'>";
+                    echo "<tbody>";
+                    echo "<tr>";
+                    echo "<td><img src='./Images/Products/$productImage' class='full-width'></img></td>";
+                    echo "<td>";
+                    echo "<br> <span class='thin'>$productName</span>";
+                    echo "<br> <span class='thin small'>Quantity: $productQuantity<br><br></span>";
+
+                    if ($row['Stock'] < $productQuantity)
                     {
-                      $shipping = 5;
+                      echo "<div style='color:red; font-size:0.8rem'>This product is out of stock.</div>";
+                      echo "<div style='color:red; font-size:0.7rem'>Please return to shopping cart and amend your purchase.</div>";
+                      $canCheckout = false;
                     }
-                    else if ($shippingType == "express")
-                    {
-                      $shipping = 10;
-                    }
-                    else
-                    {
-                      $shipping = 0;
-                    }
+
+                    echo "</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                    echo "<td>";
+                    echo "<div class='price'>$$productPrice</div>";
+                    echo "</td>";
+                    echo "</tr>";
+                    echo "</tbody>";
+                    echo "</table>";
+                    echo "<div class='line'></div>";
                   }
                 }
-                ?>
+              
+              $shipping = 0;
+
+              if (isset($_SESSION["selected_shipping"]))
+              {
+
+                if ($_SESSION["selected_shipping"] == "normal")
+                {
+                  $shipping = 5;
+                  $_SESSION["shipping"] = "Normal";
+                }
+                else if ($_SESSION["selected_shipping"] == "express")
+                {
+                  $shipping = 10;
+                  $_SESSION["shipping"] = "Express";
+                }
+
+                if (isset($_SESSION["is_free"]))
+                {
+                  $shipping = 0;
+                  $_SESSION["shipping"] = "Free";
+                }
+              } 
+
+              foreach($_SESSION['Items'] as $key=>$item){
+                $pid = $item["productId"];
+                $qry = "SELECT Quantity FROM product WHERE ProductID = ?";
+                $stmt = $conn->prepare($qry);
+                $stmt->bind_param("i", $pid);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_array();
+                $stmt->close();
+              }
+
+              ?>
             
             </div>
 
@@ -138,7 +157,7 @@
           else
           {
             header("Location: shoppingCart.php");
-                  exit;
+            exit;
           }
 
           ?>
@@ -147,7 +166,7 @@
               <div class='order'>Sub-Total:</div>
               <div class='order'>Discount:</div>
               <?php echo "<div class='order'>GST ($gstrate%):</div>";?>
-              <div class='order'>Delivery:</div>
+              <?php echo "<div class='order'>$_SESSION[shipping] Delivery:</div>" ?>
               <div class='order order-total'>TOTAL:</div>
           </span>
           <span style='float:right; text-align:right;'>
@@ -160,36 +179,27 @@
               {
                 while($row = $result->fetch_array())
                 {
-                  $subtotal = $row['SubTotal'];
                   $discount = $row['Discount'];
-                  $total = $row['Total'];
-                  $tax = $row['Tax'];
-                  $shipping = $row['ShipCharge'];
                 }
               }
 
-            
-              if ($subtotal == 0 || $total == 0 || $tax == 0 || $shipping == 0)
+              $subtotal = 0;
+
+              $stmt = $conn->prepare("SELECT * FROM ShopCartItem WHERE ShopCartID= ?");
+              $stmt->bind_param("i", $cartId);
+              $stmt->execute();
+              $result = $stmt->get_result();
+              if ($result -> num_rows > 0)
               {
-                $subtotal = 0;
-
-                $stmt = $conn->prepare("SELECT * FROM ShopCartItem WHERE ShopCartID= ?");
-                $stmt->bind_param("i", $cartId);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($result -> num_rows > 0)
-                {
-                  
-                  while($row = $result->fetch_array())
-                  {
-                    $subtotal += $row['Price'] * $row['Quantity'];
-                  }
-                }
-                $tax = ($gstrate/100) * $subtotal;
-                $shipping = 5;
-                $total = $subtotal + $tax + $shipping;
                 
+                while($row = $result->fetch_array())
+                {
+                  $subtotal += $row['Price'] * $row['Quantity'];
+                }
               }
+              $tax = ($gstrate/100) * $subtotal;
+              $total = $subtotal + $tax + $shipping;
+                
 
               echo "<div class='order'>$$subtotal</div>"; 
               echo "<div class='order'>-$$discount</div>";
@@ -203,18 +213,34 @@
               $_SESSION['Total'] = $total;
             ?>
             </span>
-              </div>
+            </div>
+            <form action="checkoutProcess.php" method="post">
+            <div style="margin:10px">
+              Message for Gift (Optional)
+            <input class='input-field' name="message"></input>
+                </div>
                 <img src='./Images/PayPal.png' height='80' class='credit-card-image' id='credit-card-image'></img>
-                <form method='post' action="checkoutProcess.php">
-                <button class='pay-btn' name="checkoutBtn">Checkout With Paypal</button>
-              </form>
+                <?php
+                    if ($canCheckout)
+                    {
+                        echo "<button class='pay-btn' name='checkoutBtn'>";
+                        echo "Checkout With Paypal";
+                        echo "</button>";
+                    }
+                    else
+                    {
+                        echo "<button class='pay-btn' name='checkoutBtn' disabled >";
+                        echo "<small style='font-size:0.8rem'>Please amend your shopping cart to checkout</small>";
+                        echo "</button>";
+                    }
+                ?>
+            </form>
               </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
 
 
 

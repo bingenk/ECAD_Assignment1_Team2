@@ -53,8 +53,7 @@ if (isset($_POST['shipping_option'])) {
         $totalPrice = $price * $row["Quantity"];
         $formattedPrice = number_format($price, 2);
         $formattedTotal = number_format($totalPrice, 2);
-  
-        array_push($_SESSION["Items"], $row["ProductID"]);
+      
       echo "<div class='product'>";
       echo "<div class='product-image'>";
       echo "<img src='Images/Products/$row[ProductImage]' />";
@@ -129,9 +128,9 @@ if (isset($_POST['shipping_option'])) {
   echo '<form id="deliveryForm" action="" method="post">'; // This form will now submit when a shipping option is selected
   echo '<label>Choose Shipping:</label><br/>';
   echo '<input type="radio" id="normal" name="shipping_option" value="normal" onchange="this.form.submit()"'.(isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'normal' ? ' checked' : '').'>';
-  echo '<label for="normal">Normal - $5</label><br/>';
+  echo '<label for="normal">Normal (Delivery within 2 Working Days) - $5</label><br/>';
   echo '<input type="radio" id="express" name="shipping_option" value="express" onchange="this.form.submit()"'.(isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'express' ? ' checked' : '').'>';
-  echo '<label for="express">Express - $10</label>';
+  echo '<label for="express">Express (Delivery within 24 Hours) - $10</label>';
   echo '</form>';
   echo '</div>';
 
@@ -159,6 +158,7 @@ if (isset($_POST['shipping_option'])) {
   else{
     $tax = 0;
   }
+  
   echo '<label>Tax ('.$tax.'%)</label>';
   $taxAmount = $subTotal * $tax/100;
   echo '<div class="totals-value" id="cart-tax">'.$taxAmount.'</div>';
@@ -175,6 +175,7 @@ if (isset($_POST['shipping_option'])) {
       $shipping = 0;
       $_SESSION['is_free'] = 1;
   }
+
 if(isset($_SESSION['is_free'])){
   echo '<div class="totals-value" id="cart-shipping">'.$shipping.'</div>';
 }

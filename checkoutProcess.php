@@ -4,33 +4,22 @@ session_start();
 include_once("myPayPal.php"); 
 include_once("mysql_conn.php"); 
 
+// sb-wqidv28498715@personal.example.com
+// tv&nd0#Q
 if($_POST)
 {
-	foreach($_SESSION['Items'] as $key=>$item){
-		$pid = $item["productId"];
-		$qry = "SELECT Quantity FROM product WHERE ProductID = ?";
-		$stmt = $conn->prepare($qry);
-		$stmt->bind_param("i", $pid);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_array();
-		$stmt->close();
-		if ($row["Quantity"] < $item["quantity"]){
-			echo "<div style='color:red'><b>Product $item[productId]: $item[name] is out of stock.</b></div>";
-			echo "<div style='color:red'><b>Please return to shopping cart to amend your purchase.</b></div>";
-			exit;
-		}
-	}
-	
 	$paypal_data = '';
+	
+	$message = $_POST['message'];
+    $_SESSION['message'] = $message;
 
 	foreach($_SESSION['Items'] as $key=>$item) {
 		$paypal_data .= '&L_PAYMENTREQUEST_0_QTY'.$key.'='.urlencode($item["quantity"]);
 	  	$paypal_data .= '&L_PAYMENTREQUEST_0_AMT'.$key.'='.urlencode($item["price"]);
 	  	$paypal_data .= '&L_PAYMENTREQUEST_0_NAME'.$key.'='.urlencode($item["name"]);
 		$paypal_data .= '&L_PAYMENTREQUEST_0_NUMBER'.$key.'='.urlencode($item["productId"]);
-		
 	}
+	$_SESSION["Tax"] = round($_SESSION["Tax"], 2);
 	
 	$padata = '&CURRENCYCODE='.urlencode($PayPalCurrencyCode).
 			  '&PAYMENTACTION=Sale'.
@@ -73,6 +62,7 @@ if($_POST)
 
 if(isset($_GET["token"]) && isset($_GET["PayerID"])) 
 {	
+	$_SESSION["test"] = "yes";
 	$token = $_GET["token"];
 	$playerid = $_GET["PayerID"];
 	$paypal_data = '';
@@ -100,27 +90,29 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 	$httpParsedResponseAr = PPHttpPost('DoExpressCheckoutPayment', $padata, 
 	                                   $PayPalApiUsername, $PayPalApiPassword, 
 									   $PayPalApiSignature, $PayPalMode);
-	
+									   
 	if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || 
 	   "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) 
 	{
-		$qry = "UPDATE poduct SET Quantity = Quantity - ? WHERE ProductID = ?";
+		$qry = "UPDATE Product SET Quantity = Quantity - ? WHERE ProductID = ?";
 		$stmt = $conn->prepare($qry);
 		$stmt ->bind_param("ii", $item["quantity"], $item["productId"]);
 		$stmt -> execute();
 		$stmt -> close();
 		
-		$total = $_SESSION["SubTotal"] + $_SESSION["Tax"] + $_SESSION["ShipCharge"];
-		$qry = "UPDATE shopcart SET OrderPlaced = 1, Quantity=?, SubTotal=?,
+		
+		$qry = "UPDATE ShopCart SET OrderPlaced = 1, Quantity=?, SubTotal=?,
 				ShipCharge=?, Tax=?, Total=? WHERE ShopCartID=?";
+
 		$stmt = $conn->prepare($qry);
 		$stmt->bind_param("iddddi", $_SESSION["NumCartItem"],
 							$_SESSION["SubTotal"], $_SESSION["ShipCharge"],
-							$_SESSION["Tax"], $total,
+							$_SESSION["Tax"], $_SESSION["Total"],
 							$_SESSION["Cart"]);
 		$stmt->execute();
 		$stmt->close();
-
+		
+		
 		$transactionID = urlencode(
 		                 $httpParsedResponseAr["PAYMENTINFO_0_TRANSACTIONID"]);
 		$nvpStr = "&TRANSACTIONID=".$transactionID;
@@ -148,11 +140,12 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 			$ShipCountry = urldecode(
 			               $httpParsedResponseAr["SHIPTOCOUNTRYNAME"]);
 			
-			$ShipEmail = urldecode($httpParsedResponseAr["EMAIL"]);			
-			
+			$ShipEmail = urldecode($httpParsedResponseAr["EMAIL"]);		
+
 			$stmt = $conn->prepare("INSERT INTO orderdata (ShipName, ShipAddress, ShipCountry,
-                                    ShipEmail, ShopCartID) VALUES (?, ?, ?, ?, ?)");
-			$stmt->bind_param("ssssi",$ShipName, $ShipAddress, $ShipCountry, $ShipEmail, $_SESSION["Cart"]);
+								ShipEmail, ShopCartID, DeliveryMode, Message) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param("ssssiss",$ShipName, $ShipAddress, $ShipCountry, $ShipEmail, $_SESSION["Cart"],$_SESSION["shipping"], $_SESSION["message"]);
+			
 			$stmt->execute();
 			$stmt->close();
 			$qry = "SELECT LAST_INSERT_ID() AS OrderID";
@@ -161,9 +154,15 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 			$_SESSION["OrderID"] = $row["OrderID"];
 				
 			$conn->close();
-				  
 			$_SESSION["NumCartItem"] = 0;
 			unset($_SESSION["Cart"]);
+			unset($_SESSION["Items"]);
+			unset($_SESSION["shipping"]);
+			unset($_SESSION["SubTotal"]);
+			unset($_SESSION["ShipCharge"]);
+			unset($_SESSION["Tax"]);
+			unset($_SESSION["Total"]);
+			unset($_SESSION["message"]);
 				
 			header("Location: orderConfirmation.php");
 			exit;

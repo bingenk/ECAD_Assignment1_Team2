@@ -222,7 +222,7 @@ ul li:hover {
 }
 
 .input-field {
-  background:rgba(255,255,255,0.1);
+  background:rgba(255, 255, 255, 0.2);
   margin-bottom:10px;
   margin-top:5px;
   line-height:1.5em;
@@ -293,6 +293,20 @@ ul li:hover {
 
 .radio-inline input[type="radio"] {
   margin-right: 5px; /* Adjust spacing between radio button and label text */
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #989898;
+  color: #666666;
+}
+
+button:disabled:hover,
+button[disabled]:hover{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 
