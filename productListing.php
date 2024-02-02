@@ -4,15 +4,16 @@ include('navbar.php');
 include('mysql_conn.php'); // Include your database connection file
 
 // Check if any category is selected
-if (isset($_GET['category']) && is_array($_GET['category'])) {
-    $selectedCategories = $_GET['category'];
+if (isset($_GET['category'])) {
+    $selectedCategories = (array) $_GET['category'];
 
     // Prepare SQL query with JOINs
     $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
-    $query = "SELECT p.ProductID, p.ProductTitle, p.ProductDesc, p.ProductImage, p.Price, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate FROM product p 
+    $query = "SELECT p.ProductID, p.ProductTitle, p.ProductDesc, p.ProductImage, p.Price, p.Quantity, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate FROM product p 
               INNER JOIN catproduct cp ON p.ProductID = cp.ProductID 
               INNER JOIN category c ON cp.CategoryID = c.CategoryID 
-              WHERE c.CatName IN ($placeholders)";
+              WHERE c.CatName IN ($placeholders)
+              ORDER BY p.ProductTitle";
     
     $stmt = $conn->prepare($query);
     // Dynamic parameter binding
@@ -27,6 +28,7 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
             // Check for valid offer
             $currentDate = date('Y-m-d');
             $isOfferValid = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
+            $isOutOfStock = $row['Quantity'] <= 0;
 
             // Start showcase
             echo "<div class='showcase'>";
@@ -36,7 +38,11 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 
             if ($isOfferValid) {
                 $discountPercentage = round((1 - ($row['OfferedPrice'] / $row['Price'])) * 100);
-                echo "<p class='showcase-badge'>{$discountPercentage}%</p>";
+                echo "<p class='showcase-badge'>Offer {$discountPercentage}%</p>";
+            }
+
+            if ($isOutOfStock) {
+                echo "<p class='showcase-badge' style='background-color: red;  color: white; font-weight: var(--weight-500); padding: 0 8px; border-radius: var(--border-radius-sm); display: inline-block;'>Out of Stock!</p> ";
             }
 
             // Buttons (like, view, etc.)
@@ -60,24 +66,15 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
             echo "</p>";
             echo "<a href='#' class='read-more-link'>Read more</a>";
             echo "<a href='#' class='read-less-link'>Read less</a>";
-            echo "</div>"; // .description-container
-
-            // Ratings
-            echo "<div class='showcase-rating'>";
-            echo "<ion-icon name='star'></ion-icon>";
-            echo "<ion-icon name='star'></ion-icon>";
-            echo "<ion-icon name='star'></ion-icon>";
-            echo "<ion-icon name='star-outline'></ion-icon>";
-            echo "<ion-icon name='star-outline'></ion-icon>";
-            echo "</div>"; // .showcase-rating
+            echo "</div>"; // .description-container            
 
             // Price box
             echo "<div class='price-box'>";
             if ($isOfferValid) {
-                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice']) . "</p>";
-                echo "<del>$" . htmlspecialchars($row['Price']) . "</del>";
+                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice'],2) . "</p>";
+                echo "<del>$" . htmlspecialchars($row['Price'],2) . "</del>";
             } else {
-                echo "<p class='price'>$" . htmlspecialchars($row['Price']) . "</p>";
+                echo "<p class='price'>$" . htmlspecialchars($row['Price'],2) . "</p>";
             }
             echo "</div>"; // .price-box
             echo "</div>"; // .showcase-content
@@ -97,7 +94,7 @@ include('footer.php');
 
 <style>
 .product-grid {
-    display: flex;
+    display: flex-end;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
@@ -135,8 +132,9 @@ include('footer.php');
 }
 
 .read-more-link,
-.read-less-link {
-    position: absolute;
+.read-less-link {   
+    color: black;
+    font-size: smaller;
     bottom: 0;
     right: 0;
 }

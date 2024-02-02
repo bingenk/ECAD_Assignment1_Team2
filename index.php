@@ -1,7 +1,8 @@
 <?php 
 include('header.php'); 
-include('navbar.php') 
-
+include('navbar.php');
+include('feedbackDisplay.php');
+include('mysql_conn.php');
 ?>
 <!-- MAIN -->
 <main>
@@ -12,7 +13,7 @@ include('navbar.php')
     <div class="slider-container has-scrollbar">
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -32,7 +33,7 @@ include('navbar.php')
 
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -52,7 +53,7 @@ include('navbar.php')
 
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -83,7 +84,7 @@ include('navbar.php')
           <!-- Other elements like close button -->
         </div>        
         
-        <form action="productDisplay.php" method="GET">
+        <form action="productListing.php" method="GET">
           <div class="category-checkbox">
               <label>
                   <input type="checkbox" id="flowersCheckbox" name="category[]" value="Flowers">
@@ -196,600 +197,64 @@ include('navbar.php')
     </div>
     <!-- END OF SIDEBAR -->
 
-    <!-- PRODUCT ON SALE -->
-    <div class="product-main">
-      <h2 class="title">Product on Sale</h2>
-      <div class="product-grid">
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>       
-        
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blooms_of_Sunshine.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blooms_of_Sunshine.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blossoming_Health.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blossoming_Health.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Deluxe_Diaper_Cake_Girl.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Deluxe_Diaper_Cake_Girl.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Lavish_Prosperity.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Lavish_Prosperity.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Pink_Lady.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Pink_Lady.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Springtime_Bloom.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Springtime_Bloom.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Together_Forever.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Together_Forever.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-
-          </div>
-        </div>           
-
-        <div class="showcase">
-          <div class="showcase-banner">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img default">
-            <img src="Images/Products/Blissful_Bundle.jpg" alt="#" width="300" class="product-img hover">
-
-            <p class="showcase-badge">15%</p>
-            <div class="showcase-actions">
-
-              <button class="btn-action">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
-
-              <button class="btn-action">
-                <ion-icon name="bag-add-outline"></ion-icon>
-              </button>
-
-            </div>
-          </div>
-
-          <div class="showcase-content">
-            <a href="#" class="showcase-category">Product Name</a>
-            <a href="#">
-              <h3 class="showcase-title">Product Description....</h3>
-            </a>
-
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <p class="price">$48.00</p>
-              <del>$75.00</del>
-            </div>
-          </div>
-        </div>           
-      </div>
-    </div>
-    <!-- END OF PRODUCT ON SALE -->
+    <!-- PRODUCT ON OFFER -->
+    <?php       
+      $currentDate = date('Y-m-d');
+      $query = "SELECT * FROM Product WHERE Offered = 1 AND '$currentDate' >= OfferStartDate AND '$currentDate' <= OfferEndDate ORDER BY ProductTitle ASC";
+      $result = $conn->query($query);
+            
+      echo '<div class="product-main">';
+      echo '<h2 class="title">Product on Offer</h2>';
+      echo '<div class="product-grid">';
+      
+      if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+              $discountPercentage = round((1 - ($row['OfferedPrice'] / $row['Price'])) * 100);
+      
+              // Display each product
+              echo "<div class='showcase'>";
+              echo "<div class='showcase-banner'>";
+              echo "<img src='Images/Products/" . htmlspecialchars($row['ProductImage']) . "' alt='" . htmlspecialchars($row['ProductTitle']) . "' width='300' class='product-img default'>";
+              echo "<img src='Images/Products/" . htmlspecialchars($row['ProductImage']) . "' alt='" . htmlspecialchars($row['ProductTitle']) . "' class='product-img hover'>";
+              echo "<p class='showcase-badge'>Offer {$discountPercentage}%</p>";              
+              echo "</div>"; // .showcase-banner
+      
+              // Showcase content
+              echo "<div class='showcase-content'>";
+              echo "<a href='productDetails.php?pid=" . $row['ProductID'] . "' class='showcase-category'>" . htmlspecialchars($row['ProductTitle']) . "</a>";
+              echo "<h3 class='showcase-title short-description'>";
+              echo htmlspecialchars(mb_strimwidth($row['ProductDesc'], 0, 60, '...')); 
+              echo "</h3>"; 
+              echo "<p class='showcase-title expanded-description'>";
+      
+              // Price box
+              echo "<div class='price-box'>";
+              if ($row['OfferedPrice'] < $row['Price']) {
+                  echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice']) . "</p>";
+                  echo "<del>$" . htmlspecialchars($row['Price']) . "</del>";
+              } else {
+                  echo "<p class='price'>$" . htmlspecialchars($row['Price']) . "</p>";
+              }
+              echo "</div>"; // .price-box
+      
+              echo "</div>"; // .showcase-content
+              echo "</div>"; // .showcase
+          }
+      } else {
+          echo "<p>No products on sale currently.</p>";
+      }
+      echo "</div>"; // .product-grid
+      echo '</div>'; // .product-main
+    ?>
+    <!-- END OF PRODUCT ON OFFER -->
   </div>           
+
+  <!-- Feedback -->
+  <h2 class="title" style="margin: 25px;">Rating & Feedback</h2>  
+  <div class="testimonial-container">
+    <?php displayFeedback(); // Call the function to display feedback ?>
+  </div>
+  </div>
 </main>
 
 <?php include 'footer.php'; ?>

@@ -13,23 +13,15 @@
       </li>
 
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="productListing.php?category=Flowers" class="footer-nav-link">Flowers</a>
       </li>
 
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="productListing.php?category=Gifts" class="footer-nav-link">Gifts</a>
       </li>
 
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
-      </li>
-
-      <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
-      </li>
-
-      <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="productListing.php?category=Hampers" class="footer-nav-link">Hampers</a>
       </li>
 
     </ul>
@@ -41,23 +33,23 @@
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Official Opening</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Birthday</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Wedding</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Romance</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Get Well</a>
       </li>
     
     </ul>    
@@ -65,28 +57,24 @@
     <ul class="footer-nav-list">
     
       <li class="footer-nav-item">
-        <h2 class="nav-title">Services</h2>
+        <h2 class="nav-title">Contributors</h2>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Bing En</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Praveen</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
+        <a href="#" class="footer-nav-link">Jun Qin</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
-      </li>
-    
-      <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">abc</a>
-      </li>
+        <a href="#" class="footer-nav-link">Kelvin</a>
+      </li>          
     
     </ul>
 
@@ -119,7 +107,7 @@
           <ion-icon name="mail-outline"></ion-icon>
         </div>
 
-        <a href="mailto:example@gmail.com" class="footer-nav-link">abc@gmail.com</a>
+        <a href="mailto:example@gmail.com" class="footer-nav-link">floragifts@support.com</a>
       </li>
 
     </ul>
@@ -134,25 +122,25 @@
         <ul class="social-link">
 
           <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">
+            <a href="https://facebook.com" class="footer-nav-link">
               <ion-icon name="logo-facebook"></ion-icon>
             </a>
           </li>
 
           <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">
+            <a href="https://x.com" class="footer-nav-link">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
 
           <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">
+            <a href="https://www.linkedin.com/in/bing-en-koo/" class="footer-nav-link">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
 
           <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">
+            <a href="https://instagram.com" class="footer-nav-link">
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
@@ -171,7 +159,7 @@
   <div class="container">    
 
     <p class="copyright">
-      Copyright &copy; <a href="#">Bing En</a> all rights reserved.
+      Copyright &copy; <a href="#">FloraGifts(ECAD Team2)</a> all rights reserved.
     </p>
 
   </div>

@@ -1,4 +1,4 @@
-<?php
+ <?php
 session_start();
 
 // Check if user is logged in
@@ -63,13 +63,14 @@ if ($isUserLoggedIn) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FloraGifts E-commerce Shop</title>
 
-  <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="Images/Web_Icon/web_icon.png" type="image/x-icon">
 
   <link rel="stylesheet" href="css/style-prefix.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -160,25 +161,25 @@ if ($isUserLoggedIn) {
         <ul class="header-social-container">
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://facebook.com" class="social-link">
               <ion-icon name="logo-facebook"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://x.com" class="social-link">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://instagram.com" class="social-link">
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://www.linkedin.com/in/bing-en-koo/" class="social-link">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
@@ -202,15 +203,6 @@ if ($isUserLoggedIn) {
             </select>
         </form>
 
-
-          <select name="language">
-
-            <option value="en-US">English</option>
-            <option value="es-ES">Chinese</option>
-            <option value="fr">Malay</option>
-
-          </select>
-
         </div>
 
       </div>
@@ -225,21 +217,23 @@ if ($isUserLoggedIn) {
           <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">FloraGifts</a>
         </a>
 
+        <div class="header-search-container">
 
-        <form name="frmSearch" action="search.php" class="header-search-form">
+          <form name="frmSearch" action="search.php" class="header-search-form">
 
-        
-          <div class="header-search-container">
+          
+            <div class="header-search-container">
 
-            <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name...">
+              <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name here">
 
-            <button class="search-btn" type="submit">
-              <ion-icon name="search-outline"></ion-icon>
-            </button>
+              <button class="search-btn" type="submit">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
 
-          </div>
+            </div>
 
-        </form>
+          </form>
+        </div>  
     
 
         <div class="header-user-actions">
@@ -275,10 +269,9 @@ if ($isUserLoggedIn) {
 
             
 
-          <button class="action-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">0</span>
-          </button>
+          <a class="action-btn" id="feedbackButton" style="cursor: pointer;">
+            <ion-icon name="chatbox-ellipses-outline"></ion-icon>            
+          </a>
           <?php 
 // Start the session
 
@@ -288,6 +281,7 @@ $isUserLoggedIn = isset($_SESSION['ShopperID']);
 
 // Determine the link's HREF based on login status
 $linkHref = $isUserLoggedIn ? "shoppingCart.php" : "login.php";
+$linkFeedback = $isUserLoggedIn ? "feedback.php" : "login.php";
 
 // Continue with the rest of your logged-in user's logic if logged in
 if ($isUserLoggedIn):
@@ -342,10 +336,18 @@ endif;
             window.location.href = 'login.php';
         }
 
+        function redirectToFeedback() {
+            window.location.href = 'feedback.php';
+        }
 
-
-    
-        
+        document.getElementById('feedbackButton').addEventListener('click', function() {
+        <?php if ($isUserLoggedIn): ?>
+            window.location.href = 'feedback.php';
+        <?php else: ?>
+            window.location.href = 'login.php';
+        <?php endif; ?>
+      });
+            
     </script>
 
 
