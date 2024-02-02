@@ -17,12 +17,15 @@
   background: #555;
 }
 
+a {
+  width:10px !important;
+}
 
 body,html {
   height:100%;
   width:100%;
   margin:0;
-  font-family:lato;
+  font-family: "Poppins", sans-serif;
 }
 
 h2 {
@@ -62,8 +65,8 @@ h3 {
   display:-webkit-flex;
   display:-ms-flexbox;
   display:flex;
-  background:-webkit-linear-gradient(#c5e5e5, #ccddf9);
-  background:linear-gradient(#c9e5e9,#ccddf9);
+  /* background:-webkit-linear-gradient(#c5e5e5, #ccddf9);
+  background:linear-gradient(#c9e5e9,#ccddf9); */
 }
 
 .order-container{
@@ -163,7 +166,7 @@ ul li:hover {
 }
 .pay-btn {
   border:none;
-  background:darkcyan;
+  background:hsl(152, 51%, 52%);
   line-height:2em;
   border-radius:10px;
   font-size:19px;
@@ -235,7 +238,7 @@ ul li:hover {
   border-radius:8px;
 }
 .credit-info {
-  background:var(--salmon-pink);
+  background:hsl(353, 100%, 78%);;
   height:100%;
   width:50%;
   color:#eee;
