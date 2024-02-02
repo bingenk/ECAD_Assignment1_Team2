@@ -13,7 +13,7 @@ include('mysql_conn.php');
     <div class="slider-container has-scrollbar">
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -25,7 +25,7 @@ include('mysql_conn.php');
             starting at &dollar; <b>20</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
 
@@ -33,7 +33,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers2.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -42,10 +42,10 @@ include('mysql_conn.php');
           <h2 class="banner-title">Product on Sales</h2>
 
           <p class="banner-text">
-            starting at &dollar; <b>20</b>.00
+            starting at &dollar; <b>45</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
 
@@ -53,7 +53,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers3.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -62,10 +62,10 @@ include('mysql_conn.php');
           <h2 class="banner-title">Product on Sales</h2>
 
           <p class="banner-text">
-            starting at &dollar; <b>20</b>.00
+            starting at &dollar; <b>45</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
       </div>     
@@ -75,7 +75,7 @@ include('mysql_conn.php');
 </div>
 
 <!-- SIDEBAR -->
-<div class="product-container">
+<div class="product-container" id="sidebar">
   <div class="container">          
     <div class="sidebar  has-scrollbar" data-mobile-menu>
       <div class="sidebar-category">
@@ -114,83 +114,40 @@ include('mysql_conn.php');
         <h3 class="showcase-heading">best sellers</h3>
         <div class="showcase-wrapper">
           <div class="showcase-container">
-            <div class="showcase">
+            <?php
+            // Query to get the best-selling products
+            $bestSellersQuery = "SELECT p.ProductID, p.ProductTitle, p.Price, p.ProductImage, SUM(sci.Quantity) AS TotalSold
+                                FROM Product p
+                                JOIN ShopCartItem sci ON p.ProductID = sci.ProductID
+                                GROUP BY p.ProductID
+                                ORDER BY TotalSold DESC
+                                LIMIT 3"; 
 
-              <a href="#" class="showcase-img-box">
-                <img src="Images/Category/Flowers.jpg" alt="baby fabric shoes" width="75" height="75"
-                  class="showcase-img">
-              </a>
-              <div class="showcase-content">
-                <a href="#">
-                  <h4 class="showcase-title">Product Name</h4>
-                </a>
+            $bestSellersResult = $conn->query($bestSellersQuery);
 
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </div>
+            if ($bestSellersResult && $bestSellersResult->num_rows > 0) {
+                while ($row = $bestSellersResult->fetch_assoc()) {
+                    echo "<div class='showcase'>";
 
-                <div class="price-box">
-                  <del>$5.00</del>
-                  <p class="price">$4.00</p>
-                </div>
-              </div>
-            </div>          
-
-            <div class="showcase">
-
-              <a href="#" class="showcase-img-box">
-                <img src="Images/Category/Flowers.jpg" alt="baby fabric shoes" width="75" height="75"
-                  class="showcase-img">
-              </a>
-              <div class="showcase-content">
-                <a href="#">
-                  <h4 class="showcase-title">Product Name</h4>
-                </a>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <del>$5.00</del>
-                  <p class="price">$4.00</p>
-                </div>
-              </div>
-            </div>          
-
-            <div class="showcase">
-
-              <a href="#" class="showcase-img-box">
-                <img src="Images/Category/Flowers.jpg" alt="baby fabric shoes" width="75" height="75"
-                  class="showcase-img">
-              </a>
-              <div class="showcase-content">
-                <a href="#">
-                  <h4 class="showcase-title">Product Name</h4>
-                </a>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <del>$5.00</del>
-                  <p class="price">$4.00</p>
-                </div>
-              </div>
-            </div>          
+                    echo "<a href='productDetails.php?pid=" . $row['ProductID'] . "' class='showcase-img-box'>";                    
+                    echo "<img src='Images/Products/" . htmlspecialchars($row['ProductImage']) . "' alt='" . htmlspecialchars($row['ProductTitle']) . "' width='75' height='75' class='showcase-img'>";
+                    echo "</a>";
+                    echo "<div class='showcase-content'>";
+                    echo "<a href='productDetails.php?pid=" . $row['ProductID'] . "'>";
+                    echo "<h4 class='showcase-title'>" . htmlspecialchars($row['ProductTitle']) . "</h4>";
+                    echo "</a>";                    
+                  
+                    // Showcase rating and price
+                    echo "<div class='price-box'>";
+                    echo "<p class='price'>$" . number_format($row['Price'], 2) . "</p>";
+                    echo "</div>"; // .price-box
+                    echo "</div>"; // .showcase-content
+                    echo "</div>"; // .showcase
+                }
+            } else {
+                echo "<p>No best-selling products found.</p>";
+            }
+            ?>
           </div>
         </div>
       </div>
