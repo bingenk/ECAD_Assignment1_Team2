@@ -1,5 +1,6 @@
  <?php
 session_start();
+include_once("mysql_conn.php");
 
 // Check if user is logged in
 $isUserLoggedIn = isset($_SESSION['ShopperID']);
@@ -31,6 +32,10 @@ if (isset($_SESSION['conversion_rates'])) {
 
     echo "Price in $selectedCurrency: $convertedPrice";
 }
+
+$occasionQuery = "SELECT DISTINCT SpecVal FROM ProductSpec WHERE SpecID = (SELECT SpecID FROM Specification WHERE SpecName = 'Occasion') ORDER BY SpecVal";
+$occasionResult = $conn->query($occasionQuery);
+
 ?>
 
 <?php include_once('mysql_conn.php');
@@ -219,20 +224,48 @@ if ($isUserLoggedIn) {
 
         <div class="header-search-container">
 
-          <form name="frmSearch" action="search.php" class="header-search-form">
+        <form name="frmSearch" action="search.php" method="get" class="header-search-form">
+          <div class="header-search-container">
+            <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name here">
+            <!-- Filter button -->
+            <button type="button" class="filter-btn" onclick="toggleFilterDropdown()">
+              <ion-icon name="funnel-outline"></ion-icon>
+            </button>
+            <button class="search-btn" type="submit">
+              <ion-icon name="search-outline"></ion-icon>
+            </button>
+          </div>
 
-          
-            <div class="header-search-container">
-
-              <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name here">
-
-              <button class="search-btn" type="submit">
-                <ion-icon name="search-outline"></ion-icon>
-              </button>
-
+          <!-- Filter dropdown (hidden by default) -->
+          <div class="filter-dropdown" id="filterDropdown" style="display: none;">
+            <div class="filter-option">
+              <label for="occasion">Occasion:</label>
+              <select name="occasion" id="occasion">
+                <option value="">Select</option>
+                <?php
+                // Check if the query returned any rows
+                if ($occasionResult && $occasionResult->num_rows > 0) {
+                    // Iterate through the result set and output option elements
+                    while ($row = $occasionResult->fetch_assoc()) {
+                        echo "<option value='" . htmlspecialchars($row['SpecVal']) . "'>" . htmlspecialchars($row['SpecVal']) . "</option>";
+                    }
+                }
+                ?>
+            </select>
             </div>
+            <div class="filter-option">
+              <label for="priceRange">Price Range:</label>
+              <select name="priceRange" id="priceRange">
+                <option value="">Select</option>
+                <option value="0-50">$0 - $50</option>
+                <option value="51-100">$51 - $100</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+            <button type="submit" class="apply-filters-btn">Apply Filters</button>
+          </div>
+        </form>
 
-          </form>
         </div>  
     
 
@@ -347,7 +380,12 @@ endif;
             window.location.href = 'login.php';
         <?php endif; ?>
       });
-            
+
+      function toggleFilterDropdown() {
+      var dropdown = document.getElementById("filterDropdown");
+      dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+      }    
+
     </script>
 
 

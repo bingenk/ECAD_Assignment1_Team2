@@ -13,7 +13,7 @@ include('mysql_conn.php');
     <div class="slider-container has-scrollbar">
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -25,7 +25,7 @@ include('mysql_conn.php');
             starting at &dollar; <b>20</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
 
@@ -33,7 +33,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers2.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -42,10 +42,10 @@ include('mysql_conn.php');
           <h2 class="banner-title">Product on Sales</h2>
 
           <p class="banner-text">
-            starting at &dollar; <b>20</b>.00
+            starting at &dollar; <b>45</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
 
@@ -53,7 +53,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="Images/background_flowers3.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -62,10 +62,10 @@ include('mysql_conn.php');
           <h2 class="banner-title">Product on Sales</h2>
 
           <p class="banner-text">
-            starting at &dollar; <b>20</b>.00
+            starting at &dollar; <b>45</b>.00
           </p>
 
-          <a href="#" class="banner-btn">Shop now</a>
+          <a href="#sidebar" class="banner-btn">Shop now</a>
 
         </div>
       </div>     
@@ -75,7 +75,7 @@ include('mysql_conn.php');
 </div>
 
 <!-- SIDEBAR -->
-<div class="product-container">
+<div class="product-container" id="sidebar">
   <div class="container">          
     <div class="sidebar  has-scrollbar" data-mobile-menu>
       <div class="sidebar-category">

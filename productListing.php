@@ -86,7 +86,7 @@ if (isset($_GET['category'])) {
     $stmt->close();
     echo "</div>"; // GRID
 } else {
-    echo "<p>Please select at least one category.</p>";
+    echo "<p style='text-align: center; font-weight:bold; margin-top:5em; margin-bottom:5em; color: red; font-size: 24px;'>Please select at least one category.</p>";
 }
 include('footer.php');
 ?>
