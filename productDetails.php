@@ -65,15 +65,38 @@ if ($row=$result->fetch_array()){
 
     // Add to Cart Form
     echo "<form action='cartFunctions.php' method='post' style='margin-bottom: 15px;'>";
+    $cartQtyQuery = "SELECT Quantity FROM ShopCartItem WHERE ProductID=? AND ShopCartID=?";
+    $cartStmt = $conn->prepare($cartQtyQuery);
+    $cartStmt->bind_param("ii", $pid, $_SESSION["Cart"]); // Assuming $_SESSION["Cart"] holds the Cart ID
+    $cartStmt->execute();
+    $cartResult = $cartStmt->get_result();
+    $cartStmt->close();
+    $cartQty = 0;
+    if ($cartRow = $cartResult->fetch_array()) {
+        $cartQty = $cartRow['Quantity'];
+    }
+    $availableQty = min($row['Quantity'] - $cartQty, 10);
 
     // Check if the product is out of stock
     if ($row['Quantity'] <= 0) {
         echo "<p class='showcase-badge' style='background-color: red;  color: white; font-weight: var(--weight-500); padding: 0 8px; border-radius: var(--border-radius-sm); display: inline-block;'>Out of Stock!</p> ";
         echo "<button type='submit' disabled style='margin: 15px 0; color: white; border-radius:6px; background-color: hsl(353, 95%, 76%); padding: 6px 7px 6px 7px; opacity: 0.5;'>Add to Cart</button>";
-    } else {
+    } 
+    elseif ($availableQty <= 0) {
+        echo "<p class='showcase-badge' style='background-color: red;  color: white; font-weight: var(--weight-500); padding: 0 8px; border-radius: var(--border-radius-sm); display: inline-block;'>Max Quantity Reached!</p> ";
+        echo "<button type='submit' disabled style='margin: 15px 0; color: white; border-radius:6px; background-color: hsl(353, 95%, 76%); padding: 6px 7px 6px 7px; opacity: 0.5;'>Add to Cart</button>";
+    }
+    else {
         echo "<input type='hidden' name='action' value='add' />";
         echo "<input type='hidden' name='product_id' value='$pid' />";
-        echo "Quantity:<input type='number' name='quantity' value='1' min='1' max='10' style='width:60px; margin-right: 10px;' required />";
+        echo "Quantity: <select name='quantity' style='margin-right: 10px;' required>";
+        
+        // Populate the dropdown
+        for ($i = 1; $i <= $availableQty; $i++) {
+            echo "<option value='$i'>$i</option>";
+        }
+    
+        echo "</select>";
         echo "<button type='submit' style='margin: 15px 0; color: white; border-radius:6px; background-color: hsl(353, 95%, 76%); padding: 6px 7px 6px 7px;'>Add to Cart</button>";
     }
     echo "</form>";
