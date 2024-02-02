@@ -22,7 +22,7 @@ include('mysql_conn.php');
           <h2 class="banner-title">Product on Sales</h2>
 
           <p class="banner-text">
-            starting at &dollar; <b>20</b>.00
+            starting at &dollar; <b>45</b>.00
           </p>
 
           <a href="#sidebar" class="banner-btn">Shop now</a>
