@@ -13,7 +13,7 @@ include('mysql_conn.php');
     <div class="slider-container has-scrollbar">
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -33,7 +33,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 
@@ -53,7 +53,7 @@ include('mysql_conn.php');
 
       <div class="slider-item">
 
-        <img src="https://img.freepik.com/free-photo/floral-ornaments_23-2148134159.jpg" alt="women's latest fashion sale" class="banner-img">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/870/524/original/horizontal-backdrop-decorated-with-blooming-flowers-and-leaves-border-abstract-art-nature-background-trendy-plants-frame-flower-garden-botanical-floral-pattern-design-for-summer-sale-banner-vector.jpg" alt="women's latest fashion sale" class="banner-img">
 
         <div class="banner-content">
 

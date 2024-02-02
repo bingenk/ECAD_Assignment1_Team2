@@ -161,25 +161,25 @@ if ($isUserLoggedIn) {
         <ul class="header-social-container">
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://facebook.com" class="social-link">
               <ion-icon name="logo-facebook"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://x.com" class="social-link">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://instagram.com" class="social-link">
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
 
           <li>
-            <a href="#" class="social-link">
+            <a href="https://www.linkedin.com/in/bing-en-koo/" class="social-link">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
@@ -203,15 +203,6 @@ if ($isUserLoggedIn) {
             </select>
         </form>
 
-
-          <select name="language">
-
-            <option value="en-US">English</option>
-            <option value="es-ES">Chinese</option>
-            <option value="fr">Malay</option>
-
-          </select>
-
         </div>
 
       </div>
@@ -226,21 +217,23 @@ if ($isUserLoggedIn) {
           <a href="index.php" style="color: black; font-weight: 700; font-size: 1.7em;">FloraGifts</a>
         </a>
 
+        <div class="header-search-container">
 
-        <form name="frmSearch" action="search.php" class="header-search-form">
+          <form name="frmSearch" action="search.php" class="header-search-form">
 
-        
-          <div class="header-search-container">
+          
+            <div class="header-search-container">
 
-            <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name...">
+              <input type="search" name="search" id="search" class="search-field" placeholder="Enter your product name here">
 
-            <button class="search-btn" type="submit">
-              <ion-icon name="search-outline"></ion-icon>
-            </button>
+              <button class="search-btn" type="submit">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
 
-          </div>
+            </div>
 
-        </form>
+          </form>
+        </div>  
     
 
         <div class="header-user-actions">
