@@ -61,19 +61,19 @@
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">Bing En</a>
+        <a href="https://www.linkedin.com/in/bing-en-koo/" class="footer-nav-link">Bing En</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">Praveen</a>
+        <a href="https://www.linkedin.com/in/vetriselvan-praveen-532164238/" class="footer-nav-link">Praveen</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">Jun Qin</a>
+        <a href="https://www.linkedin.com/in/jun-qin-tan-576165238/" class="footer-nav-link">Jun Qin</a>
       </li>
     
       <li class="footer-nav-item">
-        <a href="#" class="footer-nav-link">Kelvin</a>
+        <a href="https://www.linkedin.com/in/behjueenhaokelvin/" class="footer-nav-link">Kelvin</a>
       </li>          
     
     </ul>
