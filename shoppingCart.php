@@ -123,6 +123,8 @@ if (isset($_POST['shipping_option'])) {
   echo '<div class="cart-bottom-section">'; // Container for the form and totals
 
   // Delivery Options Form
+
+  
   echo '<div class="delivery-options">';
   echo '<form id="deliveryForm" action="" method="post">'; // This form will now submit when a shipping option is selected
   echo '<label>Choose Shipping:</label><br/>';
@@ -167,17 +169,28 @@ if (isset($_POST['shipping_option'])) {
   if ($subTotal <= 200) {
       // Check if a shipping option was previously selected
       $shipping = (isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'express') ? 10 : 5;
+      unset($_SESSION['is_free']);
   } 
   else{
       $shipping = 0;
       $_SESSION['is_free'] = 1;
   }
-
+if(isset($_SESSION['is_free'])){
   echo '<div class="totals-value" id="cart-shipping">'.$shipping.'</div>';
+}
+else{
+  echo '<div class="totals-value" id="cart-shipping">'.$shipping.'</div>';
+}
   echo '</div>';
   echo '<div class="totals-item totals-item-total">';
   echo '<label>Grand Total</label>';
-  $totalprice= $subTotal + $taxAmount +$shipping ;
+  if(isset($_SESSION['is_free'])){
+    $totalprice= $subTotal + $taxAmount;
+  }
+  else{
+    $totalprice= $subTotal + $taxAmount +$shipping ;
+  }
+
   echo '<div class="totals-value" id="cart-total">'.$totalprice.'</div>';
   echo '</div>';
   echo '</div>';
