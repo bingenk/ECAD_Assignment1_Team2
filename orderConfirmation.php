@@ -1,12 +1,34 @@
 <?php
+session_start();
+if (isset($_SESSION["ShopperID"]))
+{
+    include ("mysql_conn.php");
+}
+else
+{
+    header("Location: login.php");
+    exit;
+}
 
-
-if (!isset($_SESSION["OrderID"]))
+if (isset($_SESSION["OrderID"]))
+{
+    $stmt = $conn->prepare("SELECT * FROM orderdata WHERE OrderID = ?");
+    $stmt->bind_param("i", $_SESSION["OrderID"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $orderrow = $result->fetch_assoc();
+    if ($orderrow["OrderID"] == null)
+    {
+        header("Location: index.php");
+        exit;
+    }
+}
+else
 {
     header("Location: index.php");
     exit;
 }
-
+session_abort();
 include ("header.php");
 
 ?>
@@ -41,7 +63,10 @@ include ("header.php");
             $stmt->execute();
             $result = $stmt->get_result();
             $orderrow = $result->fetch_assoc();
-            echo "<strong>Order Number:</strong> " . $orderrow["OrderID"] . " | <strong>Order Date:</strong> " . $orderrow["DateOrdered"];
+            if ($orderrow["OrderID"] != null)
+            {
+                echo "<strong>Order Number:</strong> " . $orderrow["OrderID"] . " | <strong>Order Date:</strong> " . $orderrow["DateOrdered"];
+            }
             ?>
             </p>
         </div>
