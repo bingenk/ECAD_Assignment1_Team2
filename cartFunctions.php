@@ -101,6 +101,7 @@ function updateItem() {
 	$stmt ->execute();
 	$stmt ->close();
 	$conn->close();
+	$_SESSION['updateSubmitted'] = true;
 	header ("Location: shoppingcart.php");
 	exit;
 }

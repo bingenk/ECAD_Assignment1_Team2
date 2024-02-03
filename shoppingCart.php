@@ -3,7 +3,7 @@
 // Include the Page Layout header 
 include("header.php");
 
-
+$allItemsInStock = false;
 
   
 
@@ -15,6 +15,33 @@ if (!isset($_SESSION["ShopperID"])) { // Check if user logged in
 // Handle shipping option form submission
 if (isset($_POST['shipping_option'])) {
     $_SESSION['selected_shipping'] = $_POST['shipping_option'];
+}
+
+function validateCartItems($conn) {
+  include_once("mysql_conn.php");
+
+
+  $isValid = true;
+  $cartId = $_SESSION["Cart"];
+  $qry = "SELECT s.ProductID, s.Quantity, p.Quantity AS Stock
+          FROM ShopCartItem s
+          JOIN Product p ON s.ProductID = p.ProductID
+          WHERE s.ShopCartID = ?";
+  $stmt = $conn->prepare($qry);
+  $stmt->bind_param("i", $cartId);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  while ($row = $result->fetch_assoc()) {
+      if ($row["Quantity"] > $row["Stock"]) {
+          // Item quantity exceeds stock, adjust the cart or notify the user
+          $isValid = false;
+          // Optionally adjust the item quantity in the cart to match the stock level
+          // Or flag this item for user notification
+      }
+  }
+  $stmt->close();
+  return $isValid;
 }
 
 
@@ -58,7 +85,8 @@ else{
     $stmt->close();
   
     if ($result->num_rows > 0) {
-  
+      $allItemsInStock = true; // Assume all items are in stock initially
+
       $_SESSION["Items"] = array();
       $subTotal = 0; 
       while ($row = $result->fetch_array()) {
@@ -76,52 +104,90 @@ else{
       echo "<img src='Images/Products/$row[ProductImage]' />";
       echo "</div>";
       echo "<div class='product-details'>";
+      echo "<div style='display: flex; align-items: center;'>";
       echo "<div class='product-title'>$row[Name]</div>";
+      // Display the hourglass icon for low stock items here
+      if ($row["Stock"] < 10 && $row["Stock"] > 0) {
+        echo "<div style='display: flex; align-items: center; margin-top: 5px;'>";
+        echo "<img src='Images/images.jpeg' style='height:20px; width:20px; margin-right: 5px;' title='Low Stock' />";
+        echo "<span style='font-size: 14px; color: orange;'>Low Stock</span>";
+        echo "</div>";
+      }
+      echo "</div>"; // Close flex container
       echo "<p class='product-description'>$row[ProductDesc]</p>";
       echo "</div>";
 
+
       echo "<div class='product-price'>$formattedPrice</div>";
 
-  echo "<form action='cartFunctions.php' method='post'>";
-  echo "<div class='product-quantity'>";
-  echo "<select name='quantity' onChange='this.form.submit()'>";
-  if($row["Stock"] > 10){
-     
-			for($i=1; $i<=10; $i++) {
-				if ($i == $row["Quantity"]) 
-					// Select drop-down list item with value same as the quantity of purchase
-				    $selected ="selected";
-				else 
-					 $selected ="";// No specific item is selected
-				echo "<option value='$i' $selected>$i</option>";			
-			}
+      if ($row["Stock"] == 1 && !isset($_SESSION['updateSubmitted'])) {
+        
+        echo "<form id='autoSubmitForm' action='cartFunctions.php' method='post'>";
+        echo "<input type='hidden' name='action' value='update' />";
+        echo "<input type='hidden' name='product_id' value='{$row['ProductID']}'/>";
+        echo "<input type='hidden' name='quantity' value='1'/>"; // Set quantity to 1
+        echo "</form>";
+        
+        // Check if a specific parameter is present in the URL
+        if (isset($_GET['autosubmit'])) {
+            $_SESSION['updateSubmitted'] = True;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() {";
+            echo "document.getElementById('autoSubmitForm').submit();";
+            echo "});</script>";
+        }
+        
+ 
+    } else if (isset($_SESSION['updateSubmitted'])) {
+        // Clear the session flag to allow for normal operations on the next visit
+        unset($_SESSION['updateSubmitted']);
     }
+    
+    
 
-  else{
-   $stock_left = $row["Stock"];
-    for($i=1; $i<=$stock_left; $i++) {
-      if ($i == $row["Quantity"]) 
-        // Select drop-down list item with value same as the quantity of purchase
-          $selected ="selected";
-      else 
-        $selected ="";// No specific item is selected
-      echo "<option value='$i' $selected>$i</option>";
-    }
+      echo "<form action='cartFunctions.php' method='post'>";
+      echo "<div class='product-quantity'>";
 
-  }
-      echo "</select>";
+      if ($row["Stock"] <= 0) {
+        $allItemsInStock = false;
+          echo "<p style='color: red;'>Out of stock. Please remove this item.</p>";
+          // Note: The quantity selector is omitted here since the item is out of stock
+      } 
+     elseif ($row["Quantity"] > $row["Stock"]) {
+          $allItemsInStock = false;
+          echo "<p>Please adjust the quantity. Only $row[Stock] left in stock.</p>";
+          echo "<select name='quantity' onChange='this.form.submit()'>";
+          for($i = 1; $i <= $row["Stock"]; $i++) {
+              $selected = ($i == $row["Quantity"]) ? "selected" : "";
+              echo "<option value='$i' $selected>$i</option>";
+          }
+          echo "</select>";
+      } else {
+          // Stock is sufficient, show the select element as normal
+          echo "<select name='quantity' onChange='this.form.submit()'>";
+          $maxOptions = min($row["Stock"], 10); // Limiting the max options to 10 or stock if lower
+          for($i=1; $i <= $maxOptions; $i++) {
+              $selected = ($i == $row["Quantity"]) ? "selected" : "";
+              echo "<option value='$i' $selected>$i</option>";            
+          }
+          echo "</select>";
+      }
+
       echo "<input type='hidden' name='action' value='update' />";
       echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
+
       echo "</div>"; // Close product-quantity
       echo "</form>";
 
-     echo "<form action='cartFunctions.php' method='post'>";
-  echo "<div class='product-removal'>";
-  echo "<input type='hidden' name='action' value='remove' />";
-  echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
-  echo "<button class='remove-product'>Remove</button>";
-  echo "</div>"; // Close product-removal
-  echo "</form>";
+      echo "<form action='cartFunctions.php' method='post'>";
+      echo "<div class='product-removal'>";
+      echo "<input type='hidden' name='action' value='remove' />";
+      echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
+      echo "<button class='remove-product'>Remove</button>";
+      echo "</div>"; // Close product-removal
+      echo "</form>";
+
+
+      
 
 
   echo "<div class='product-line-price'>$formattedTotal</div>";
@@ -197,7 +263,7 @@ else{
  
   if ($subTotal <= 200) {
       // Check if a shipping option was previously selected
-      $shipping = (isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'express') ? 10 : 5;
+      $shipping = (isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'express') ? number_format(10*$conversionRate,2) : number_format(5*$conversionRate,2);
       unset($_SESSION['is_free']);
   } 
   else{
@@ -228,9 +294,18 @@ else{
   echo '</div>';
   echo '</div>';
 
-  echo "<form method='post' action='checkout.php' onsubmit='return validateShipping()'>";       
-  echo '<button class="checkout" type="submit">Checkout</button>';
-  echo "</form>";
+  $cartIsValid = validateCartItems($conn);
+
+  if ($cartIsValid && $allItemsInStock) {
+    echo "<form method='post' action='checkout.php'>";
+    echo '<button class="checkout" type="submit">Checkout</button>';
+    echo "</form>";
+} else {
+    echo "<button class='checkout' style='background-color: red; color: white;' disabled>Unable to checkout</button>";
+    // Optionally, add JavaScript to alert the user or dynamically update the page to show which items need attention.
+}
+
+
 
   echo '</div>';  
   echo '</div>'; // Close the cart-bottom-section div
@@ -250,8 +325,14 @@ else {
 
 // Include the Page Layout footer 
 include("footer.php");
-?>
 
+
+// Before showing the checkout button, validate cart item
+
+// Include logic to show notification or disable checkout based on $cartIsValid
+
+?>
+<!-- 
 <script>
 function validateShipping() {
     if (!document.getElementById('normal').checked && !document.getElementById('express').checked) {
@@ -260,4 +341,22 @@ function validateShipping() {
     }
     return true;
 }
-</script>
+
+document.querySelector('.checkout').addEventListener('click', function(e) {
+    // Perform client-side validation or AJAX calls to ensure cart validity
+    // Prevent checkout if the cart is invalid
+    fetch('validate_cart.php') // Assume this endpoint performs similar checks as validateCartItems()
+        .then(response => response.json())
+        .then(data => {
+            if (!data.isValid) {
+                alert('Please adjust your cart items according to stock availability.');
+                e.preventDefault(); // Prevent form submission
+            }
+        })
+        .catch(error => {
+            console.error('Error validating cart:', error);
+            e.preventDefault();
+        });
+});
+
+</script> -->
