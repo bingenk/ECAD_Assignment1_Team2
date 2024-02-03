@@ -1,11 +1,13 @@
 <?php
+
+
+if (!isset($_SESSION["OrderID"]))
+{
+    header("Location: index.php");
+    exit;
+}
+
 include ("header.php");
-
-// if (!isset($_SESSION["OrderID"]))
-// {
-//     header("Location: index.php");
-
-// }
 
 ?>
 
