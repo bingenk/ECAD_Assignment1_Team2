@@ -18,20 +18,11 @@ if (!empty($_POST['currency'])) {
       // Store the conversion rates in session
       $_SESSION['conversion_rates'] = $response->conversion_rates;
       $_SESSION['selected_currency'] = $selectedCurrency;
+      $_SESSION['ConversionRate'] = $response->conversion_rates->$selectedCurrency;
   }
 }
 
-// Check if conversion rates are stored in the session
-if (isset($_SESSION['conversion_rates'])) {
-    $conversionRates = $_SESSION['conversion_rates'];
-    $selectedCurrency = $_SESSION['selected_currency'];
 
-    // Example: Convert a base price to the selected currency
-    $basePrice = 10; // Example price in USD
-    $convertedPrice =  $conversionRates->$selectedCurrency;
-
-    echo "Price in $selectedCurrency: $convertedPrice";
-}
 
 $occasionQuery = "SELECT DISTINCT SpecVal FROM ProductSpec WHERE SpecID = (SELECT SpecID FROM Specification WHERE SpecName = 'Occasion') ORDER BY SpecVal";
 $occasionResult = $conn->query($occasionQuery);
@@ -199,14 +190,31 @@ if ($isUserLoggedIn) {
 
         <div class="header-top-actions">
 
-        <form method="post">
-            <select name="currency" id="currency-select" onchange="this.form.submit()">
-                <option value="SGD">SGD $</option>
-                <option value="SGD">SGD $</option>
-                <option value="EUR">EUR €</option>
-                <option value="USD">USD $</option>
-            </select>
-        </form>
+        <?php
+            // Check if form was submitted and currency was selected
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['currency'])) {
+          $_SESSION['selectedCurrency'] = $_POST['currency'];
+        }
+
+        // Use the session-stored currency or default to "SGD"
+        $selectedCurrency = isset($_SESSION['selectedCurrency']) ? $_SESSION['selectedCurrency'] : 'SGD';
+
+        echo "Selected Currency: " . htmlspecialchars($selectedCurrency);
+        ?>
+
+       <!-- Assuming this form is part of a PHP file -->
+      <form method="post">
+          <select name="currency" id="currency-select" onchange="this.form.submit()">
+              <option value="" disabled selected>Change currency</option>
+              <option value="SGD">SGD $</option>
+              <option value="EUR">EUR €</option>
+              <option value="USD">USD $</option>
+          </select>
+      </form>
+
+  
+
+
 
         </div>
 

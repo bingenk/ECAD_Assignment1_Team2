@@ -1,10 +1,23 @@
 ﻿<?php 
+
 //Session included in header.php
 include("header.php"); // Include the Page Layout header
 ?>
 
 <!-- Create a container, 90% width of viewport -->
 <div style='width:90%; margin:auto;'>
+<?php 
+  if(isset($_SESSION["ConversionRate"])){
+
+    $conversionRate = $_SESSION["ConversionRate"];    
+    
+  }
+  else{
+    $conversionRate = 1;
+    $currency = "SGD";
+
+  }
+  ?>
 
 <?php 
 $pid=$_GET["pid"]; // Read Product ID from query string
@@ -51,16 +64,20 @@ if ($row=$result->fetch_array()){
 
      // Display the product's price
      if ($isOnOffer && $row['OfferedPrice'] < $row['Price']) {
-      $formattedOfferPrice = number_format($row["OfferedPrice"], 2);
+    $convertedPrice = $row['OfferedPrice'] * $conversionRate;
+      $formattedOfferPrice = number_format($convertedPrice, 2);
+      $conversionPrice2= $row['Price'] * $conversionRate;
+
       $discountPercentage = round((1 - ($row['OfferedPrice'] / $row['Price'])) * 100);  
       echo "<p class='showcase-badge'style='background-color: var(--ocean-green);  color: white; font-weight: var(--weight-500); padding: 0 8px; border-radius: var(--border-radius-sm); display: inline-block;'>Offer {$discountPercentage}%</p>"; 
       echo "<div class='price-box' style='display: flex; align-items: baseline;'>";
       echo "<p style='font-size: 1.4em; color: red !important; font-weight: bold; margin-bottom: 15px;'>S$ $formattedOfferPrice</p>";
-      echo "<del style='font-size: 1.4em; color: grey; margin-left: 8px;'>$" . htmlspecialchars($row['Price'],2) . "</del>";                    
+      echo "<del style='font-size: 1.4em; color: grey; margin-left: 8px;'>$" . htmlspecialchars($conversionPrice2,2) . "</del>";                    
       echo "</div>"; // .price-box
       } else {
-            $formattedPrice = number_format($row["Price"], 2);
-            echo "<p style='font-size: 1.4em; color: red; font-weight: bold; margin-bottom: 15px;'>S$ $formattedPrice</p>";
+        $convertedPrice1 = $row['Price'] * $conversionRate;
+        $formattedOfferPrice = number_format($convertedPrice1, 2);
+            echo "<p style='font-size: 1.4em; color: red; font-weight: bold; margin-bottom: 15px;'>S$ $formattedOfferPrice</p>";
       }
 
     // Add to Cart Form

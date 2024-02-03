@@ -3,6 +3,20 @@ include('header.php');
 include('navbar.php'); 
 include('mysql_conn.php'); // Include your database connection file
 
+
+  if(isset($_SESSION["ConversionRate"])){
+
+    $conversionRate = $_SESSION["ConversionRate"];    
+    
+  }
+  else{
+    $conversionRate = 1;
+    $currency = "SGD";
+
+  
+    }
+
+
 // Check if any category is selected
 if (isset($_GET['category'])) {
     $selectedCategories = (array) $_GET['category'];
@@ -71,10 +85,13 @@ if (isset($_GET['category'])) {
             // Price box
             echo "<div class='price-box'>";
             if ($isOfferValid) {
-                echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice'],2) . "</p>";
-                echo "<del>$" . htmlspecialchars($row['Price'],2) . "</del>";
+                $convertedPrice = $row['OfferedPrice'] * $conversionRate;
+                echo "<p class='price'>$" . htmlspecialchars($convertedPrice,2) . "</p>";
+                $convertedPrice1 = $row['Price'] * $conversionRate;
+                echo "<del>$" . htmlspecialchars($convertedPrice1,2) . "</del>";
             } else {
-                echo "<p class='price'>$" . htmlspecialchars($row['Price'],2) . "</p>";
+                $convertedPrice = $row['Price'] * $conversionRate;
+                echo "<p class='price'>$" . htmlspecialchars($convertedPrice,2) . "</p>";
             }
             echo "</div>"; // .price-box
             echo "</div>"; // .showcase-content

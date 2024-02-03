@@ -2,6 +2,11 @@
 //Session included in header.php
 // Include the Page Layout header 
 include("header.php");
+
+
+
+  
+
 if (!isset($_SESSION["ShopperID"])) { // Check if user logged in 
     header("Location: login.php");
     exit;
@@ -10,6 +15,18 @@ if (!isset($_SESSION["ShopperID"])) { // Check if user logged in
 // Handle shipping option form submission
 if (isset($_POST['shipping_option'])) {
     $_SESSION['selected_shipping'] = $_POST['shipping_option'];
+}
+
+
+if(isset($_SESSION["ConversionRate"])){
+
+  $conversionRate = $_SESSION["ConversionRate"];    
+  
+}
+else{
+  $conversionRate = 1;
+  $currency = "SGD";
+
 }
 
 ?>
@@ -27,7 +44,7 @@ if (isset($_POST['shipping_option'])) {
     <?php
    if (isset($_SESSION["Cart"])) {
     include_once("mysql_conn.php");
-    // To Do 1 (Practical 4): 
+ 
     // Retrieve from database and display shopping cart in a table
     $qry = "SELECT s.*, p.ProductImage, p.ProductDesc, p.Offered, p.OfferedPrice, p.OfferStartDate, p.OfferEndDate, (s.Price * s.Quantity) AS Total,p.Quantity AS Stock
           FROM ShopCartItem s
@@ -49,7 +66,7 @@ if (isset($_POST['shipping_option'])) {
         $isOnOffer = $row['Offered'] == 1 && $currentDate >= $row['OfferStartDate'] && $currentDate <= $row['OfferEndDate'];
           
         // Choose the correct price based on whether the item is on offer
-        $price = $isOnOffer ? $row["OfferedPrice"] : $row["Price"];
+        $price = $isOnOffer ? $row["OfferedPrice"]*$conversionRate : $row["Price"]*$conversionRate;
         $totalPrice = $price * $row["Quantity"];
         $formattedPrice = number_format($price, 2);
         $formattedTotal = number_format($totalPrice, 2);
@@ -123,16 +140,27 @@ if (isset($_POST['shipping_option'])) {
 
   // Delivery Options Form
 
-  
   echo '<div class="delivery-options">';
   echo '<form id="deliveryForm" action="" method="post">'; // This form will now submit when a shipping option is selected
   echo '<label>Choose Shipping:</label><br/>';
+  
+  // Define shipping prices in SGD
+  $normalPriceSGD = 5;
+  $expressPriceSGD = 10;
+  
+  // Convert shipping prices to the selected currency
+  $normalPriceConverted = $normalPriceSGD * $conversionRate;
+  $expressPriceConverted = $expressPriceSGD * $conversionRate;
+  
   echo '<input type="radio" id="normal" name="shipping_option" value="normal" onchange="this.form.submit()"'.(isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'normal' ? ' checked' : '').'>';
-  echo '<label for="normal">Normal (Delivery within 2 Working Days) - $5</label><br/>';
+  echo '<label for="normal">Normal (Delivery within 2 Working Days) - ' . htmlspecialchars($selectedCurrency) . ' ' . number_format($normalPriceConverted, 2) . '</label><br/>';
+  
   echo '<input type="radio" id="express" name="shipping_option" value="express" onchange="this.form.submit()"'.(isset($_SESSION['selected_shipping']) && $_SESSION['selected_shipping'] == 'express' ? ' checked' : '').'>';
-  echo '<label for="express">Express (Delivery within 24 Hours) - $10</label>';
+  echo '<label for="express">Express (Delivery within 24 Hours) - ' . htmlspecialchars($selectedCurrency) . ' ' . number_format($expressPriceConverted, 2) . '</label>';
+  
   echo '</form>';
   echo '</div>';
+  
 
   echo '<div class="totals">';
   echo '<div class="totals-item">';
@@ -161,7 +189,8 @@ if (isset($_POST['shipping_option'])) {
   
   echo '<label>Tax ('.$tax.'%)</label>';
   $taxAmount = $subTotal * $tax/100;
-  echo '<div class="totals-value" id="cart-tax">'.$taxAmount.'</div>';
+  $formattedTaxAmount = number_format($taxAmount, 2);
+  echo '<div class="totals-value" id="cart-tax">'.$formattedTaxAmount.'</div>';
   echo '</div>';
   echo '<div class="totals-item">';
   echo '<label>Shipping</label>';
@@ -189,8 +218,11 @@ else{
     $totalprice= $subTotal + $taxAmount;
   }
   else{
+
     $totalprice= $subTotal + $taxAmount +$shipping ;
+
   }
+  $totalprice = number_format($totalprice, 2);
 
   echo '<div class="totals-value" id="cart-total">'.$totalprice.'</div>';
   echo '</div>';

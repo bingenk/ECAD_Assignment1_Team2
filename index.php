@@ -7,6 +7,18 @@ include('mysql_conn.php');
 <!-- MAIN -->
 <main>
 
+<?php 
+  if(isset($_SESSION["ConversionRate"])){
+
+    $conversionRate = $_SESSION["ConversionRate"];    
+    
+  }
+  else{
+    $conversionRate = 1;
+   }
+  ?>
+
+
 <!-- BANNER -->
 <div class="banner">
   <div class="container">
@@ -20,10 +32,16 @@ include('mysql_conn.php');
           <p class="banner-subtitle">Trending item</p>
 
           <h2 class="banner-title">Product on Sales</h2>
-
-          <p class="banner-text">
-            starting at &dollar; <b>45</b>.00
-          </p>
+        
+      <?php 
+     
+       // Assuming $conversionRate is already defined and includes the conversion logic you mentioned.
+       $price = 45; // Original price in default currency
+       $convertedPrice = $price * $conversionRate; // Convert the price
+       
+       echo '<p class="banner-text">starting at &dollar; <b>' . number_format($convertedPrice, 2) . '</b></p>';
+       ?>
+       
 
           <a href="#sidebar" class="banner-btn">Shop now</a>
 
@@ -41,9 +59,14 @@ include('mysql_conn.php');
 
           <h2 class="banner-title">Product on Sales</h2>
 
-          <p class="banner-text">
-            starting at &dollar; <b>45</b>.00
-          </p>
+          <?php
+            // Assuming $conversionRate is already defined and set appropriately
+            $originalPrice = 45; // Original price in the default currency
+            $convertedPrice = $originalPrice * $conversionRate; // Apply the conversion
+
+            echo '<p class="banner-text">starting at &dollar; <b>' . number_format($convertedPrice, 2) . '</b>.00</p>';
+            ?>
+
 
           <a href="#sidebar" class="banner-btn">Shop now</a>
 
@@ -61,9 +84,14 @@ include('mysql_conn.php');
 
           <h2 class="banner-title">Product on Sales</h2>
 
-          <p class="banner-text">
-            starting at &dollar; <b>45</b>.00
-          </p>
+          <?php
+          // Assuming $conversionRate is already defined and set appropriately
+          $originalPrice = 45; // Original price in the default currency
+          $convertedPrice = $originalPrice * $conversionRate; // Apply the conversion
+
+          echo '<p class="banner-text">starting at &dollar; <b>' . number_format($convertedPrice, 2) . '</b>.00</p>';
+          ?>
+
 
           <a href="#sidebar" class="banner-btn">Shop now</a>
 
@@ -139,7 +167,8 @@ include('mysql_conn.php');
                   
                     // Showcase rating and price
                     echo "<div class='price-box'>";
-                    echo "<p class='price'>$" . number_format($row['Price'], 2) . "</p>";
+                    $convertedPrice = $row['Price'] * $conversionRate;
+                    echo "<p class='price'>$" . number_format($convertedPrice, 2) . "</p>";
                     echo "</div>"; // .price-box
                     echo "</div>"; // .showcase-content
                     echo "</div>"; // .showcase
@@ -187,10 +216,13 @@ include('mysql_conn.php');
               // Price box
               echo "<div class='price-box'>";
               if ($row['OfferedPrice'] < $row['Price']) {
-                  echo "<p class='price'>$" . htmlspecialchars($row['OfferedPrice']) . "</p>";
-                  echo "<del>$" . htmlspecialchars($row['Price']) . "</del>";
+                $convertedPrice = $row['OfferedPrice'] * $conversionRate;
+                  echo "<p class='price'>$" . htmlspecialchars($convertedPrice) . "</p>";
+                  $convertedPrice = $row['Price'] * $conversionRate;
+                  echo "<del>$" . htmlspecialchars($convertedPrice) . "</del>";
               } else {
-                  echo "<p class='price'>$" . htmlspecialchars($row['Price']) . "</p>";
+                $convertedPrice = $row['Price'] * $conversionRate;
+                  echo "<p class='price'>$" . htmlspecialchars($convertedPrice) . "</p>";
               }
               echo "</div>"; // .price-box
       
